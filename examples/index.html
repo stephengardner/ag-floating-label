@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html ng-app="demo" ng-controller="DemoController">
+<head>
+    <title>Floating Label Demo</title>
+    <link rel="stylesheet" type="text/css" href="../dist/floating-label.css">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        input, button {
+            padding: 8px 14px;
+            box-shadow: none;
+            border: 1px solid #bbb;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #2980b9;
+            color: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            width: auto;
+        }
+
+        form {
+            width: 400px;
+            margin: 100px auto;
+        }
+
+        .control-group ~ .control-group {
+            margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+<div ng-click="toggle()">ToggleHints</div>
+<form name="testForm">
+    <div>
+        <ag-floating-label ag-floating-label class="control-group">
+            <label>Name Yourself Dooooooooooooooood</label>
+            <input type="text" ng-model="name" name="name"/>
+            <div ng-messages="testForm.name.$error" class="ag-auto-hide">
+                <div ng-message="minlength" class="ag-auto-hide">minlength is 5.</div>
+            </div>
+            <ag-hints options="options">
+                <ag-hint>Enter your name</ag-hint>
+            </ag-hints>
+        </ag-floating-label>
+    </div>
+    <div>
+        <ag-floating-label ag-floating-label class="control-group">
+            <label>Name Yourself Dooooooooooooooood</label>
+            <input type="text" ng-model="name" name="name"/>
+            <div ng-messages="testForm.name.$error" class="ag-auto-hide">
+                <div ng-message="minlength" class="ag-auto-hide">minlength is 5.</div>
+            </div>
+            <ag-hints options="options">
+                <ag-hint>Enter your name</ag-hint>
+            </ag-hints>
+        </ag-floating-label>
+    </div>
+    <div>
+        <ag-floating-label ag-floating-label class="control-group">
+            <label>Name Yourself Dooooooooooooooood</label>
+            <input type="text" ng-model="name" name="name"/>
+            <div ng-messages="testForm.name.$error" class="ag-auto-hide">
+                <div ng-message="minlength" class="ag-auto-hide">minlength is 5.</div>
+            </div>
+            <ag-hints options="options">
+                <ag-hint>Enter your name</ag-hint>
+            </ag-hints>
+        </ag-floating-label>
+    </div>
+
+
+
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <ag-floating-label ag-floating-label class="control-group">
+        <label>Name Yourself Dooooooooooooooood</label>
+        <input type="text" ng-model="name" name="name"/>
+        <div ng-messages="testForm.name.$error" class="ag-auto-hide">
+            <div ng-message="minlength" class="ag-auto-hide">minlength is 5.</div>
+        </div>
+        <ag-hints options="options">
+            <ag-hint>Enter your name</ag-hint>
+        </ag-hints>
+    </ag-floating-label>
+    <ag-floating-label ag-floating-label class="control-group">
+        <label>Name Yourself Dooooooooooooooood</label>
+        <input type="text" ng-model="name" name="name"/>
+        <div ng-messages="testForm.name.$error" class="ag-auto-hide">
+            <div ng-message="minlength" class="ag-auto-hide">minlength is 5.</div>
+        </div>
+        <ag-hints options="options">
+            <ag-hint>Enter your name</ag-hint>
+        </ag-hints>
+    </ag-floating-label>
+    <ag-floating-label ag-floating-label class="control-group">
+        <div class="ag-input-group">
+            <label>Email address</label>
+            <div class="ag-input-group-addon">
+                $
+            </div>
+            <input type="email" ng-model="email" name="email" minlength="5"/>
+        </div>
+        <div ng-messages="testForm.email.$error" class="ag-auto-hide">
+            <div ng-message="minlength" class="ag-auto-hide">minlength is 5.</div>
+        </div>
+        <ag-hints options="options">
+            <ag-hint>This is a test</ag-hint>
+        </ag-hints>
+    </ag-floating-label>
+    <ag-floating-label ag-floating-label class="control-group">
+        <label>Name Yourself Dooooooooooooooood</label>
+        <input type="text" ng-model="name" name="name"/>
+        <div ng-messages="testForm.name.$error" class="ag-auto-hide">
+            <div ng-message="minlength" class="ag-auto-hide">minlength is 5.</div>
+        </div>
+        <ag-hints options="options">
+            <ag-hint>Enter your name</ag-hint>
+        </ag-hints>
+    </ag-floating-label>
+    <ag-floating-label ag-floating-label class="control-group">
+        <div class="ag-input-group">
+            <label>Email address</label>
+            <div class="ag-input-group-addon">
+                $
+            </div>
+            <input type="email" ng-model="email" name="email" minlength="5"/>
+        </div>
+        <div ng-messages="testForm.email.$error" class="ag-auto-hide">
+            <div ng-message="minlength" class="ag-auto-hide">minlength is 5.</div>
+        </div>
+        <ag-hints options="options">
+            <ag-hint>This is a test</ag-hint>
+        </ag-hints>
+    </ag-floating-label>
+    <div ag-floating-label class="control-group">
+        <label>Something else</label>
+        <select name="select" ng-model="value">
+            <option value="1">1</option>
+            <option selected="selected" value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <ag-hints>
+            <ag-hint>Pick a select box</ag-hint>
+        </ag-hints>
+    </div>
+
+    <div class="control-group">
+        <input name="password" type="password" placeholder="Password" floating-label />
+    </div>
+
+    <div class="control-group">
+        <button type="submit">Log in</button>
+    </div>
+</form>
+
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/angular-messages/angular-messages.js"></script>
+<script src="/bower_components/angular-animate/angular-animate.js"></script>
+<script src="../dist/floating-label.js"></script>
+
+<script>
+    angular.module('demo', ['components']);
+    angular.module('demo').controller('DemoController', function ($timeout, $scope) {
+        $scope.options = {
+            autoPosition : true
+        };
+        $timeout(function(){
+            $scope.options.autoPosition = false;
+            console.log("CANGED");
+        }, 1300);
+        $scope.value = '2';
+        $scope.showError =false;
+        $scope.toggleHints = false;
+        $scope.toggle = function(){
+            $scope.toggleHints = !$scope.toggleHints;
+        }
+        $scope.testError = {
+            anotherTest : {
+                value : 'okokokokokok ok okokokok okokokok okokokok okokokok okokokok okokokok okokokok okokokok okokokok okokok'
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
