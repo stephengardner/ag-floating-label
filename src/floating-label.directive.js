@@ -1,3 +1,34 @@
+/*
+
+ A Vanilla JS alternative for jQuery's wrapInner()
+ innerwrap an HTML element with the option to add an attribute & value with it.
+ Derived from:
+ http://stackoverflow.com/questions/21817538/how-can-i-implement-jquerys-wrapinner-function-in-plain-javascript
+
+ Usage
+ ------
+ Four parameters you can use:
+ 'parent'           = the element that needs to be innerwrapped
+ 'wrapper'          = the element that will innerwrap the parent
+ 'attribute'        = the attribute that you need this innerwrapped element to have
+ 'attributevalue'   = the value of the attribute you've just created
+
+ Example
+ -------
+ wrapInner('body', 'div', 'class', 'my-class');
+
+ */
+
+var background = document.querySelector("#unique");
+var bodyinner  = document.body;
+var divtag     = document.querySelector("div");
+
+
+//Check if the body element has an ID of #unique
+// if (divtag.hasAttribute("id", "#unique")) {
+// 	wrapInner(bodyinner, 'div', 'id', 'innerwrapped-element');
+// }
+
 //
 //
 // A "Floating Label" directive using the placeholder attribute
@@ -9,61 +40,6 @@
 (function (angular) {
 	'use strict';
 
-	/**
-	 * generate an NgModel key for the input box using it's attributes (id/name)
-	 * @param {angular.element} inputBox
-	 * @return {string}
-	 */
-	function generateNgModelKey(inputBox) {
-		var inputId = inputBox.attr('id') || '',
-			inputName = inputBox.attr('name') || '';
-
-		if (inputId.length === 0 && inputName.length === 0) {
-			throw 'If no ng-model is defined, the input should have an id or a name';
-		}
-
-		return 'input_' + (inputId ? inputId : inputName);
-	}
-
-	/**
-	 * Post compile method
-	 * @param $scope
-	 * @param $element
-	 */
-	function floatingLabelPostCompileFunction ($scope, $element, $attrs)
-	{
-		var inputBox = $element.find('input'),
-			ngModelKey = inputBox.attr('ng-model'),
-			placeholderBackup = inputBox.attr('placeholder');
-
-		$scope.showLabel = false;
-		$scope.focus = false;
-		$scope.label =
-
-			$scope.$watch($scope.focus, function(value){
-				console.log(value);
-				//alert(value);
-			});
-		$scope.setFocus = function(bool) {
-			$scope.focus = bool;
-		};
-
-		$scope.$watch('focus', function(value){
-			if(value){
-				placeholderBackup = inputBox.attr('placeholder');
-				inputBox.attr('placeholder', '');// = '';
-				$scope.showLabel = true;
-			}
-			else {
-				$scope.showLabel = false;
-				inputBox.attr('placeholder', placeholderBackup);
-			}
-		})
-		$scope.$watch(ngModelKey, function (newValue) {
-			// if the field is not empty, show the label, otherwise hide it
-			$scope.showLabel = typeof newValue === 'string' && newValue.length > 0;
-		});
-	}
 
 	function getElementOffset(element)
 	{
@@ -73,43 +49,6 @@
 		var left = box.left + window.pageXOffset - de.clientLeft;
 		return { top: top, left: left };
 	}
-
-	function floatingLabelCompileFunction ($element, $attrs)
-	{
-		var templateAttributes = [
-				'ng-focus="setFocus(true)"',
-				'ng-blur="setFocus(false)"'
-			],
-			template, attr;
-
-		// if there is no placeholder, there is no use for this directive
-		if (!$attrs.placeholder) {
-			//throw 'Floating label needs a placeholder';
-		}
-		if($attrs.placeholder) {
-			// templateAttributes.push('placeholder="{{placeholderModel}}"');
-		}
-
-		// copy existing attributes from
-		for (attr in $attrs) {
-			if ($attrs.hasOwnProperty(attr) && attr.substr(0, 1) !== '$' && attr !== 'floatingLabel') {
-				templateAttributes.push($attrs.$attr[attr] + '="' + $attrs[attr] + '"');
-			}
-		}
-
-
-		return {
-			post: floatingLabelPostCompileFunction
-		};
-	}
-
-	// Add DI
-	floatingLabelCompileFunction.$inject = ['$element', '$attrs'];
-
-
-	// Add DI
-	floatingLabelPostCompileFunction.$inject = ['$scope', '$element', '$attrs'];
-
 
 	function ContainerCtrl($scope, $element, $attrs, $animate) {
 		var self = this;
@@ -176,7 +115,6 @@
 
 		console.log("OFFSET:", getElementOffset($element[0]));
 		self.offsetLeft = getElementOffset(self.element[0]);
-		//alert(self.element.offsetLeft);
 	}
 
 	function postLink(scope, element, attr) {
@@ -191,13 +129,17 @@
 			restrict: 'A',
 			scope: true,
 			link: postLink,
-			// compile: floatingLabelCompileFunction,
+			transclude : true,
+			// Wrap the content in an ag-floating-label-content-wrapper, this will produce clearfixes on the
+			// inner elements, as well as add margins using this class.  The margins could not be applied
+			// to the parent class directive AND have clearfixes, so we had to separate the two.
+			template : '<div class="ag-floating-label-content-wrapper"><ng-transclude></ng-transclude></div>',
 			controller: ContainerCtrl
 		};
 	}
 
 	// Create
 	angular
-		.module('components')
+		.module('agFloatingLabel')
 		.directive('agFloatingLabel', floatingLabelDefinition);
 })(window.angular);

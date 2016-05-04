@@ -24,6 +24,14 @@ function scriptsTask(sources, output, dist)
     };
 }
 
+function copySassTask(sources, dist) {
+	return function ()
+	{
+		return gulp
+			.src(sources)
+			.pipe(gulp.dest(dist));
+	};
+}
 /**
  * Creates function for gulp task which will concatenate less files, compile them to css and prefix them
  * @param sources
@@ -46,5 +54,6 @@ function stylesTask(sources, output, dist)
 
 module.exports = {
     scriptsTask: scriptsTask,
-    stylesTask: stylesTask
+	stylesTask: stylesTask,
+	copySassTask: copySassTask
 };

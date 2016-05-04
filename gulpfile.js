@@ -6,19 +6,18 @@ var gulpBuild   = require('./gulp/build');
 
 
 var config = {
+	copySass : {
+		sources : [
+			'./src/*.scss'
+		],
+		dest : './dist/'
+	},
     paths: {
         karmaConfigFile: __dirname + '/test/karma.conf.js',
-        // jsSources: [
-	     //    './src/floating-label.module.js',
-	     //    './src/floating-label.directive.js',
-	     //    './src/placeholder.directive.js',
-	     //    './src/input.directive.js'
-        // ],
 	    jsSources : [
 		    './src/floating-label.module.js',
 		    './src/*.js'
 	    ],
-        //lessSources: [ './src/*.less' ],
 	    sassSources : [ './src/*.scss' ],
 
         dist: './dist/',
@@ -40,10 +39,16 @@ gulp.task('scripts', gulpBuild.scriptsTask(
 ));
 
 gulp.task('styles', gulpBuild.stylesTask(
-    config.paths.sassSources,
-    config.paths.cssOutputFile,
-    config.paths.dist
+	config.paths.sassSources,
+	config.paths.cssOutputFile,
+	config.paths.dist
 ));
+
+gulp.task('copySass', gulpBuild.copySassTask(
+	config.copySass.sources,
+	config.copySass.dest
+));
+
 gulp.task('testing', function(path){
 	console.log("The path is:", path);
 })
@@ -105,9 +110,10 @@ gulp.task('server', function(){
 gulp.task('watch', function() {
 	gulp.watch('src/*.scss', ['styles']);
 	gulp.watch('src/**/*.js', ['scripts']);
+	// gulp.watch('src/index.html', notifyLivereload);
 	gulp.watch('dist/*', notifyLivereload);
 });
 
-gulp.task('build', [/*'test', */'styles', 'scripts']);
+gulp.task('build', [/*'test', */'styles', 'copySass', 'scripts']);
 
 gulp.task('default', ['server', 'build', 'watch']);

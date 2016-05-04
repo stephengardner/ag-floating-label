@@ -66,7 +66,7 @@
 			}
 		}
 	}
-	angular.module('components')
+	angular.module('agFloatingLabel')
 		.directive('agHints', ['$compile', '$timeout', agHintsDirective])
 })(window.angular);
 
@@ -93,6 +93,6 @@
 			});
 		}
 	}
-	angular.module('components')
+	angular.module('agFloatingLabel')
 		.directive('agHint', agHintDirective)
 })(window.angular);

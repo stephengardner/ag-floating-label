@@ -31,15 +31,46 @@
             margin-top:20px;
         }
     </style>
+
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-messages/angular-messages.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../dist/floating-label.js"></script>
 </head>
-<body>
+<body ng-cloak>
 <div ng-click="toggle()">ToggleHints</div>
-<form name="testForm">
+<form class="form" name="testForm">
+    <div class="row">
+        <div class="col-xs-6">
+            <div ag-floating-label ag-floating-label class="control-group">
+                <label>Name Yourself Dooooooooooooooood</label>
+                <input type="text" ng-model="name" name="name"/>
+                <div ng-if="0" ng-messages="testForm.name.$error" class="ag-auto-hide">
+                    <div ng-message="minlength" class="ag-auto-hide">minlength is 5.</div>
+                </div>
+                <ag-hints options="options">
+                    <ag-hint>Enter your name</ag-hint>
+                </ag-hints>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <ag-floating-label ag-floating-label class="control-group">
+                <label>Name Yourself Dooooooooooooooood</label>
+                <input type="text" ng-model="name" name="name"/>
+                <div ng-if="0" ng-messages="testForm.name.$error" class="ag-auto-hide">
+                    <div ng-message="minlength" class="ag-auto-hide">minlength is 5.</div>
+                </div>
+                <ag-hints options="options">
+                    <ag-hint>Enter your name</ag-hint>
+                </ag-hints>
+            </ag-floating-label>
+        </div>
+    </div>
     <div>
         <ag-floating-label ag-floating-label class="control-group">
             <label>Name Yourself Dooooooooooooooood</label>
-            <input type="text" ng-model="name" name="name"/>
-            <div ng-messages="testForm.name.$error" class="ag-auto-hide">
+            <textarea ag-no-autogrow rows="4">Testing something...</textarea>
+            <div ng-if="0" ng-messages="testForm.name.$error" class="ag-auto-hide">
                 <div ng-message="minlength" class="ag-auto-hide">minlength is 5.</div>
             </div>
             <ag-hints options="options">
@@ -169,13 +200,9 @@
     </div>
 </form>
 
-<script src="../bower_components/angular/angular.js"></script>
-<script src="../bower_components/angular-messages/angular-messages.js"></script>
-<script src="/bower_components/angular-animate/angular-animate.js"></script>
-<script src="../dist/floating-label.js"></script>
 
 <script>
-    angular.module('demo', ['components']);
+    angular.module('demo', ['agFloatingLabel']);
     angular.module('demo').controller('DemoController', function ($timeout, $scope) {
         $scope.options = {
             autoPosition : true

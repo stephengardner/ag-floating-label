@@ -37,6 +37,6 @@
 			}
 		}
 	}
-	angular.module('components')
+	angular.module('agFloatingLabel')
 		.directive('placeholder', placeholderDirective)
 })(window.angular);

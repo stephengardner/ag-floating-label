@@ -26,6 +26,6 @@
 			});
 		}
 	}
-	angular.module('components')
+	angular.module('agFloatingLabel')
 		.directive('agInputGroup', agInputGroupDirective)
 })(window.angular);

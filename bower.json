@@ -1,23 +1,25 @@
 {
-  "name": "angular-floating-label",
-  "version": "1.0.0",
-  "homepage": "https://github.com/klaascuvelier/angular-floating-label",
+  "name": "ag-floating-label",
+  "version": "0.0.2",
+  "homepage": "https://github.com/stephengardner/ag-floating-label",
   "authors": [
-    "Klaas Cuvelier <cuvelierklaas@gmail.com>"
+    "Stephen Gardner <opensourceaugie@gmail.com>"
   ],
-  "description": "Floating label directive for AngularJs",
+  "description": "Floating label directive for AngularJs - Based on Angular Material",
   "main": "dist/floating-label.js",
   "keywords": [
     "angular",
     "angularjs",
     "floating",
     "label",
-    "directive"
+    "directive",
+    "angular material"
   ],
   "license": "MIT",
   "devDependencies": {
     "angular": "1.5.x",
-    "angular-mocks": "1.5.x"
+    "angular-mocks": "1.5.x",
+    "bootstrap-sass": "^3.3.6"
   },
   "dependencies": {
     "angular-messages": "^1.5.5",

@@ -13,7 +13,7 @@
 			scope.$watch(function(){
 				return scope.$eval(attrs.agMessagesAutoPosition)
 			}, function(newValue, oldValue){
-				console.log('____agMessagedAutoPosition changing from : ', oldValue + ' to: ', newValue);
+				console.log('____agMessagedAutoPosition changing from : ', oldValue + ' to: ', newValue, " and element: ", element);
 				if(newValue)
 					center();
 				else
@@ -27,7 +27,7 @@
 			function center() {
 				console.log("DoCenter");
 				element.toggleClass('ag-messages-auto-position', true);
-				var inputElement = agFloatingLabel.element[0].querySelector('input, select'),
+				var inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea'),
 					inputOffset = getElementOffset(inputElement),
 					agFloatingLabelOffset = getElementOffset(agFloatingLabel.element[0]),
 					offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
@@ -38,7 +38,7 @@
 		}
 	}
 
-	angular.module('components')
+	angular.module('agFloatingLabel')
 		.directive('agMessagesAutoPosition', agMessagesAutoPosition)
 })(window.angular);
 

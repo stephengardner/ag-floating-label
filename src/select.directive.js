@@ -117,6 +117,6 @@
 			}
 		}
 	}
-	angular.module('components')
+	angular.module('agFloatingLabel')
 		.directive('select', selectDirective)
 })(window.angular);

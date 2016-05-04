@@ -271,7 +271,7 @@
 	}
 
 	angular
-		.module('components')
+		.module('agFloatingLabel')
 		.animation('.ag-input-invalid', agInputInvalidMessagesAnimation)
 		.animation('.ag-hints-active', agHintsActiveAnimation)
 		.animation('.ag-input-messages-animation', ngMessagesAnimation)

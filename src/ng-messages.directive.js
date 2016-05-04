@@ -81,7 +81,7 @@
 			});
 		}
 	}
-	angular.module('components')
+	angular.module('agFloatingLabel')
 		.directive('ngMessages', ['$compile', ngMessagesDirective])
 })(window.angular);
 
@@ -107,6 +107,6 @@
 	}
 	ngMessageDirective.$inject = ["$agUtil"];
 
-	angular.module('components')
+	angular.module('agFloatingLabel')
 		.directive('ngMessage', ngMessageDirective)
 })(window.angular);

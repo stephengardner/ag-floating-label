@@ -35,7 +35,6 @@
 			// 		console.log("Returning ", ngModelCtrl.$invalid + " && " + ngModelCtrl.$touched);
 			// 		return ngModelCtrl.$invalid && (ngModelCtrl.$touched || isParentFormSubmitted());
 			// 	};
-			var label = containerCtrl.element[0].querySelector('label');
 			console.log("label is:", label);
 			var isParentFormSubmitted = function () {
 				var parent = false;//$mdUtil.getClosest(element, 'form');
@@ -57,7 +56,8 @@
 			})
 			// scope.$watch(isErrorGetter, containerCtrl.setInvalid);
 			scope.$watch(isErrorGetter, containerCtrl.setInvalid);
-			
+
+			var label = containerCtrl.element[0].querySelector('label');
 			wrapInput(scope, element);
 			scope.inputWrapper.prepend(label);
 
@@ -100,6 +100,6 @@
 			}
 		}
 	}
-	angular.module('components')
+	angular.module('agFloatingLabel')
 		.directive('input', ['$agUtil', inputDirective])
 })(window.angular);
