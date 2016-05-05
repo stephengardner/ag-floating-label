@@ -80,16 +80,13 @@
 
 (function (angular) {
 	var visibilityDirectives = ['ngIf', 'ngShow', 'ngHide', 'ngSwitchWhen', 'ngSwitchDefault'];
-
 	function agHintDirective() {
 		return {
 			restrict: 'EA',
 			link: postLink,
 			require: '^^?agFloatingLabel'
 		};
-
 		function postLink(scope, element, attrs, agFloatingLabel) {
-			// If we are not a child of an input container, don't do anything
 			if (!agFloatingLabel) return;
 			element.toggleClass('ag-hint', true);
 		}
@@ -100,6 +97,7 @@
 			});
 		}
 	}
+
 	angular.module('agFloatingLabel')
 		.directive('agHint', agHintDirective)
 })(window.angular);

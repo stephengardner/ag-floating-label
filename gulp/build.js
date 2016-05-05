@@ -21,7 +21,7 @@ function scriptsTask(sources, output, dist)
         return gulp
             .src(sources)
             .pipe(concat(output))
-	        .pipe(strip())
+	        //.pipe(strip()) this resulted in an error
             .pipe(gulp.dest(dist));
     };
 }
