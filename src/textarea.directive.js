@@ -237,5 +237,6 @@
 
 	inputTextareaDirective.$inject = ["$agUtil", "$window"];
 
-	angular.module('agFloatingLabel').directive('textarea', inputTextareaDirective);
+	// angular.module('agFloatingLabel')
+	// 	.directive('textarea', inputTextareaDirective);
 })(window.angular);
