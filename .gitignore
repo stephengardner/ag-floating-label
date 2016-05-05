@@ -12,8 +12,11 @@ nbproject
 # Dev dependencies
 lib
 node_modules
-# bower_components
 npm-debug.log
+
+# gh-pages
+# gh-pages-assets
+bower_components
 
 config.js
 .tmp

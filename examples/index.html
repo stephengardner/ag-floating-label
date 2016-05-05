@@ -195,7 +195,7 @@
                             <div class="col-xs-2 col-md-1">
                                 <ag-floating-label>
                                     <label>Age</label>
-                                    <input type="number" ng-model="bootstrapFormAge" name="age"/>
+                                    <input type="number" ng-model="bootstrapFormAge" name="age" min="1"/>
                                 </ag-floating-label>
                             </div>
                             <div class="col-xs-4">
@@ -232,8 +232,8 @@
         </div>
     </div>
     <div class="demos-footer">
-        <h1 class=h2">
-            See the <a href="https://github.com/stephengardner/ag-floating-label">
+        <h1 class="h3">
+            See the <a href="https://github.com/stephengardner/ag-floating-label/tree/master/examples">
             examples folder</a> for the raw code.
         </h1>
         <a href="https://github.com/stephengardner/ag-floating-label"
@@ -258,24 +258,6 @@
             state : '',
             name : ''
         };
-        $scope.options = {
-            autoPosition : true
-        };
-        $timeout(function(){
-            $scope.options.autoPosition = false;
-            console.log("CANGED");
-        }, 1300);
-        $scope.value = '2';
-        $scope.showError =false;
-        $scope.toggleHints = false;
-        $scope.toggle = function(){
-            $scope.toggleHints = !$scope.toggleHints;
-        }
-        $scope.testError = {
-            anotherTest : {
-                value : 'okokokokokok ok okokokok okokokok okokokok okokokok okokokok okokokok okokokok okokokok okokokok okokok'
-            }
-        }
     });
 </script>
 

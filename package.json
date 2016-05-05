@@ -1,6 +1,6 @@
 {
   "name": "ag-floating-label",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Floating label directive for AngularJs",
   "scripts": {
     "test": "gulp test"
