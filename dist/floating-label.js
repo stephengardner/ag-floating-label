@@ -1212,8 +1212,8 @@ var divtag     = document.querySelector("div");
 			// }
 		}
 	}
-	angular.module('agFloatingLabel')
-		.directive('select', ['$agUtil', selectDirective])
+	// angular.module('agFloatingLabel')
+	// 	.directive('select', ['$agUtil', selectDirective])
 })(window.angular);
 (function(angular) {
 	function inputTextareaDirective($agUtil, $window) {

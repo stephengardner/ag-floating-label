@@ -120,6 +120,6 @@
 			// }
 		}
 	}
-	angular.module('agFloatingLabel')
-		.directive('select', ['$agUtil', selectDirective])
+	// angular.module('agFloatingLabel')
+	// 	.directive('select', ['$agUtil', selectDirective])
 })(window.angular);
