@@ -72,10 +72,10 @@
 					inputCheckValue();
 					// caused problems with error:required still showing up after selection.
 					// todo - see if this is still necessary
-					$agUtil.nextTick(function(){
-						// element[0].blur();
-					})
-					containerCtrl.setFocused(false);
+					// $agUtil.nextTick(function(){
+					// 	// element[0].blur();
+					// })
+					// containerCtrl.setFocused(false);
 				}
 			})
 
@@ -102,21 +102,19 @@
 			element.addClass('ag-input');
 			element
 				.on('focus', function(ev) {
-					$agUtil.nextTick(function() {
-						containerCtrl.setFocused(true);
-					});
+					// $agUtil.nextTick(function() {
+					// 	containerCtrl.setFocused(true);
+					// });
 				})
 				.on('blur', function(ev) {
-					$agUtil.nextTick(function() {
-						inputCheckValue();
-						containerCtrl.setFocused(false);
-					});
+					// $agUtil.nextTick(function() {
+					// 	inputCheckValue();
+					// 	containerCtrl.setFocused(false);
+					// });
 				});
 			function inputCheckValue() {
 				// An input's value counts if its length > 0,
 				// or if the input's validity state says it has bad input (eg string in a number input)
-				console.log("element.val().length", element.val().length);
-				console.log("element.val()", element.val());
 				containerCtrl.setHasValue(element.val().indexOf("undefined:undefined") == -1 &&
 					(element.val().length > 0 || (element[0].validity || {}).badInput));
 			}
