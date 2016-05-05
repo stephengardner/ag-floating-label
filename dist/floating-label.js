@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    var app = angular.module('agFloatingLabel', ['ngMessages']);
+    var app = angular.module('agFloatingLabel', ['ngMessages', 'ngAnimate']); 
 })(window.angular);
 (function (angular) {
 	var visibilityDirectives = ['ngIf', 'ngShow', 'ngHide', 'ngSwitchWhen', 'ngSwitchDefault'];
