@@ -975,8 +975,8 @@ var divtag     = document.querySelector("div");
 			// }
 		}
 	}
-	angular.module('agFloatingLabel')
-		.directive('input', ['$agUtil', inputDirective])
+	// angular.module('agFloatingLabel')
+	// 	.directive('input', ['$agUtil', inputDirective])
 })(window.angular);
 (function (angular) {
 	var visibilityDirectives = ['ngIf', 'ngShow', 'ngHide', 'ngSwitchWhen', 'ngSwitchDefault'];
