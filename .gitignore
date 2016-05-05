@@ -15,7 +15,7 @@ node_modules
 npm-debug.log
 
 # gh-pages
-# gh-pages-assets
+gh-pages-assets
 bower_components
 
 config.js
