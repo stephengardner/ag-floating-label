@@ -151,7 +151,7 @@
 
 				function focusSearchInput() {
 					element[0].focus();
-					//alert();
+					// alert();
 				}
 				element
 					.on('focus', function(ev) {
@@ -162,6 +162,7 @@
 						$timeout(focusSearchInput, 0);
 						$timeout(focusSearchInput, 100);
 						$timeout(focusSearchInput, 200);
+						$timeout(focusSearchInput, 2200);
 					})
 					.on('blur', function(ev) {
 						alert();
