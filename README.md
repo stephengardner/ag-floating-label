@@ -1,7 +1,7 @@
 # ag-floating-label
 
 ## A Material Design Inspired Floating Label Module for AngularJs Forms
-####[Demo](https://github.com/stephengardner/ag-floating-label)
+####[Demo](http://stephengardner.github.io/ag-floating-label/examples/)
 
 If you...
 * Love floating labels, and want an easy AngularJS directive
@@ -28,7 +28,10 @@ Then we've got you covered.
 Less than `50KB` for the `.js` and `.css` file, compared to Angular Material which is `700KB` minified and `1,500KB` unminified
 
 ## Design.
-<img src="http://stephengardner.github.io/ag-floating-label/gh-pages-assets/ag-floating-label-1.png" width="500" />
+<img src="http://stephengardner.github.io/ag-floating-label/gh-pages-assets/ag-floating-label-1.png" width="400" />
+
+## Flexibility.
+We've included the `.scss` files, which make changing the format and colors a breeze.
 
 ## Material-Design Approved!
 Inspired by Google's Material Design and [Angular Material](https://material.angularjs.org/latest/demo/input).
