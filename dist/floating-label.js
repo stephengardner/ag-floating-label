@@ -1249,7 +1249,7 @@ var divtag     = document.querySelector("div");
 // 		.directive('select', ['$agUtil', '$timeout', selectDirective])
 // })(window.angular);
 (function(angular){
-	function selectDirective(){
+	function selectDirective($agUtil, $timeout){
 		return {
 			restrict : 'E',
 			require: ['^?agFloatingLabel', '?ngModel'],
@@ -1257,6 +1257,28 @@ var divtag     = document.querySelector("div");
 				element.on('focus', function(){
 					// alert();
 				})
+
+				function focusSearchInput() {
+					element[0].focus();
+					//alert();
+				}
+				element
+					.on('focus', function(ev) {
+						//alert();
+						$agUtil.nextTick(function() {
+							//containerCtrl.setFocused(true);
+						});
+						$timeout(focusSearchInput, 0);
+						$timeout(focusSearchInput, 100);
+						$timeout(focusSearchInput, 200);
+					})
+					.on('blur', function(ev) {
+						alert();
+						$agUtil.nextTick(function() {
+							//inputCheckValue();
+							//containerCtrl.setFocused(false);
+						});
+					});
 			}
 		}
 	}
