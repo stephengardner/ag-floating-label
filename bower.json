@@ -23,8 +23,8 @@
     "bootstrap-sass": "^3.3.6"
   },
   "dependencies": {
-    "angular": "1.4.3",
-    "angular-messages": "1.4.3",
-    "angular-animate": "1.4.3"
+    "angular": "^1.4.3",
+    "angular-messages": "^1.4.3",
+    "angular-animate": "^1.4.3"
   }
 }

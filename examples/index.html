@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="demo" ng-controller="DemoController">
 <head>
-    <title>Floating Label Demo</title>
+    <title>Ag Floating Label Demo</title>
     <link rel="stylesheet" type="text/css" href="../dist/floating-label.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -24,7 +24,7 @@
             <!--<span class="icon-bar"></span>-->
             <!--<span class="icon-bar"></span>-->
             <!--</button>-->
-            <a class="navbar-brand" href="#">ag-floating-label.</a>
+            <a class="navbar-brand" href="#">ag-floating-label</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -42,34 +42,13 @@
 <div class="jumbotron">
     <div class="container">
         <h1>Floating Label Inputs for AngularJS</h1>
-        <h2>Brought to you by ag-floating-label</h2>
+        <h2>Brought to you by <code>&lt;ag-floating-label></code></h2>
     </div>
 </div>
 <div class="container forms-container">
     <div class="title">
         <h1>Demos, please!</h1>
     </div>
-    <form class="form">
-        <div class="form-group">
-                <label>
-                    Name
-                </label>
-                <input class="form-control" ng-model="name1" type="text"/>
-        </div>
-        <div class="form-group">
-            <!--<ag-floating-label>-->
-                <label>
-                    State
-                </label>
-                <select class="form-control ng-animate-disabled" ng-model="selected1" name="select">
-                    <option value="DC">DC</option>
-                    <option value="DC">MD</option>
-                    <option value="DC">VA</option>
-                    <option value="DC">None of the above</option>
-                </select>
-            <!--</ag-floating-label>-->
-        </div>
-    </form>
     <div class="row row-grid">
         <div class="col-xs-12 col-lg-4">
             <div class="panel panel-primary">
@@ -209,7 +188,7 @@
                         <div class="row">
                             <div class="col-xs-6 col-md-7">
                                 <ag-floating-label>
-                                    <label>Nametest</label>
+                                    <label>Name</label>
                                     <input type="text" ng-model="bootstrapFormName" name="name"/>
                                 </ag-floating-label>
                             </div>
@@ -229,7 +208,7 @@
                                         <option value="DC">Both</option>
                                     </select>
                                     <!--<div ng-messages="bootstrapForm.gender.$error">-->
-                                    <!--<div ng-message="required">This field is required</div>-->
+                                        <!--<div ng-message="required">This field is required</div>-->
                                     <!--</div>-->
                                 </ag-floating-label>
                             </div>
@@ -237,12 +216,12 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <ag-floating-label>
-                                    <label>Comments2</label>
+                                    <label>Comments</label>
                                     <textarea rows="4" ag-no-autogrow></textarea>
                                     <!--<ag-hints>-->
-                                    <!--<ag-hint>-->
-                                    <!--A great big textarea, which will maintain it's current size when multiple lines are added.-->
-                                    <!--</ag-hint>-->
+                                        <!--<ag-hint>-->
+                                            <!--A great big textarea, which will maintain it's current size when multiple lines are added.-->
+                                        <!--</ag-hint>-->
                                     <!--</ag-hints>-->
                                 </ag-floating-label>
                             </div>
@@ -274,8 +253,6 @@
 <script>
     angular.module('demo', ['agFloatingLabel']);
     angular.module('demo').controller('DemoController', function ($timeout, $scope) {
-        $scope.name1 = "test";
-        $scope.selected1 = 'DC';
         $scope.errorsForm = {
             city : '',
             state : '',
