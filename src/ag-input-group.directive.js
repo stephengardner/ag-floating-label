@@ -26,6 +26,6 @@
 			});
 		}
 	}
-	// angular.module('agFloatingLabel')
-	// 	.directive('agInputGroup', agInputGroupDirective)
+	angular.module('agFloatingLabel')
+		.directive('agInputGroup', agInputGroupDirective)
 })(window.angular);

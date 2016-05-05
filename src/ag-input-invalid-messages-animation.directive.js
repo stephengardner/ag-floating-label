@@ -270,11 +270,11 @@
 		return $q.all(animators);
 	}
 
-	// angular
-	// 	.module('agFloatingLabel')
-	// 	.animation('.ag-input-invalid', agInputInvalidMessagesAnimation)
-	// 	.animation('.ag-hints-active', agHintsActiveAnimation)
-	// 	.animation('.ag-input-messages-animation', ngMessagesAnimation)
-	// 	.animation('.ag-input-message-animation', ngMessageAnimation)
-	// 	.animation('.ag-input-hints-animation', agHintsAnimation);
+	angular
+		.module('agFloatingLabel')
+		.animation('.ag-input-invalid', agInputInvalidMessagesAnimation)
+		.animation('.ag-hints-active', agHintsActiveAnimation)
+		.animation('.ag-input-messages-animation', ngMessagesAnimation)
+		.animation('.ag-input-message-animation', ngMessageAnimation)
+		.animation('.ag-input-hints-animation', agHintsAnimation);
 })(window.angular);

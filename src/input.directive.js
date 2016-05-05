@@ -100,6 +100,6 @@
 			}
 		}
 	}
-	// angular.module('agFloatingLabel')
-	// 	.directive('input', ['$agUtil', inputDirective])
+	angular.module('agFloatingLabel')
+		.directive('input', ['$agUtil', inputDirective])
 })(window.angular);
