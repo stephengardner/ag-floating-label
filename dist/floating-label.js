@@ -927,10 +927,10 @@ var divtag     = document.querySelector("div");
 			scope.$watch(function(){
 				return ngModelCtrl.$touched
 			}, function(value) {
-				containerCtrl.setTouched(ngModelCtrl.$touched);
+				// containerCtrl.setTouched(ngModelCtrl.$touched);
 			})
 			// scope.$watch(isErrorGetter, containerCtrl.setInvalid);
-			scope.$watch(isErrorGetter, containerCtrl.setInvalid);
+			// scope.$watch(isErrorGetter, containerCtrl.setInvalid);
 
 			var label = containerCtrl.element[0].querySelector('label');
 			wrapInput(scope, element);
@@ -950,7 +950,7 @@ var divtag     = document.querySelector("div");
 			ngModelCtrl.$formatters.push(ngModelPipelineCheckValue);
 
 			function ngModelPipelineCheckValue(arg) {
-				containerCtrl.setHasValue(!ngModelCtrl.$isEmpty(arg));
+				// containerCtrl.setHasValue(!ngModelCtrl.$isEmpty(arg));
 				return arg;
 			}
 
