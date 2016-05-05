@@ -22,33 +22,33 @@
 		}
 
 		function postLink(scope, element, attr, ctrls){
-			var containerCtrl = ctrls[0];
-			var hasNgModel = !!ctrls[1];
-			var ngModelCtrl = ctrls[1];
-			var isReadonly = angular.isDefined(attr.readonly);
-			if (!containerCtrl) return;
-			if (containerCtrl.input) {
-				throw new Error("<md-input-container> can only have *one* <input>, <textarea> or <md-select> child element!");
-			}
+			// var containerCtrl = ctrls[0];
+			// var hasNgModel = !!ctrls[1];
+			// var ngModelCtrl = ctrls[1];
+			// var isReadonly = angular.isDefined(attr.readonly);
+			// if (!containerCtrl) return;
+			// if (containerCtrl.input) {
+			// 	throw new Error("<md-input-container> can only have *one* <input>, <textarea> or <md-select> child element!");
+			// }
 
 			// var isErrorGetter = containerCtrl.isErrorGetter || function() {
 			// 		console.log("Returning ", ngModelCtrl.$invalid + " && " + ngModelCtrl.$touched);
 			// 		return ngModelCtrl.$invalid && (ngModelCtrl.$touched || isParentFormSubmitted());
 			// 	};
-			console.log("label is:", label);
-			var isParentFormSubmitted = function () {
-				var parent = false;//$mdUtil.getClosest(element, 'form');
-				var form = parent ? angular.element(parent).controller('form') : null;
-
-				return form ? form.$submitted : false;
-			};
-
-			var isErrorGetter = function() {
-				// added ngModelCtrl.$dirty
-				// $touched is only applied after exiting the input
-				return containerCtrl.isErrorGetter 
-					|| (ngModelCtrl.$invalid && (ngModelCtrl.$touched/* || ngModelCtrl.$dirty*/));
-			}
+			// console.log("label is:", label);
+			// var isParentFormSubmitted = function () {
+			// 	var parent = false;//$mdUtil.getClosest(element, 'form');
+			// 	var form = parent ? angular.element(parent).controller('form') : null;
+			//
+			// 	return form ? form.$submitted : false;
+			// };
+			//
+			// var isErrorGetter = function() {
+			// 	// added ngModelCtrl.$dirty
+			// 	// $touched is only applied after exiting the input
+			// 	return containerCtrl.isErrorGetter
+			// 		|| (ngModelCtrl.$invalid && (ngModelCtrl.$touched/* || ngModelCtrl.$dirty*/));
+			// }
 			// scope.$watch(function(){
 			// 	return ngModelCtrl.$touched
 			// }, function(value) {
@@ -74,12 +74,12 @@
 			// ngModelCtrl.$parsers.push(ngModelPipelineCheckValue);
 			// ngModelCtrl.$formatters.push(ngModelPipelineCheckValue);
 
-			function ngModelPipelineCheckValue(arg) {
-				// containerCtrl.setHasValue(!ngModelCtrl.$isEmpty(arg));
-				return arg;
-			}
-
-			containerCtrl.input = element;
+			// function ngModelPipelineCheckValue(arg) {
+			// 	// containerCtrl.setHasValue(!ngModelCtrl.$isEmpty(arg));
+			// 	return arg;
+			// }
+			//
+			// containerCtrl.input = element;
 			element.addClass('ag-input');
 			// element
 			// 	.on('focus', function(ev) {
