@@ -2,15 +2,3 @@
 $grid-gutter-width: 10px;
 
 @import '../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
-.no-animate {
-	-webkit-transition: none !important;
-	transition: none !important;
-	transform: none;
-	-webkit-transform: none;
-	* {
-		-webkit-transition: none !important;
-		transition: none !important;
-		transform: none;
-		-webkit-transform: none;
-	}
-}

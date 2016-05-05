@@ -63,11 +63,16 @@
 	color: white;
 	padding:8rem 0;
 	h2 {
+		margin-top:4rem;
 		transition: all .6s;
 		font-size: 2em;
+		@include respond-to(xs) {
+			font-size:1.5em;
+		}
 	}
 	@include respond-to(xs) {
 		h2 {
+			word-break: none;
 			font-size: 1.6em;
 		}
 	}
