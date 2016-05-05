@@ -51,10 +51,12 @@
     </div>
     <form>
         <div class="form-group">
-            <input class="form-control" type="text"/>
-            <select>
-                <option value="test">test</option>
-            </select>
+            <ag-floating-label>
+                <input class="form-control" type="text"/>
+                <select>
+                    <option value="test">test</option>
+                </select>
+            </ag-floating-label>
         </div>
     </form>
     <div class="row row-grid">
@@ -216,7 +218,7 @@
                                         <option value="DC">Both</option>
                                     </select>
                                     <!--<div ng-messages="bootstrapForm.gender.$error">-->
-                                        <!--<div ng-message="required">This field is required</div>-->
+                                    <!--<div ng-message="required">This field is required</div>-->
                                     <!--</div>-->
                                 </ag-floating-label>
                             </div>
@@ -227,9 +229,9 @@
                                     <label>Comments2</label>
                                     <textarea rows="4" ag-no-autogrow></textarea>
                                     <!--<ag-hints>-->
-                                        <!--<ag-hint>-->
-                                            <!--A great big textarea, which will maintain it's current size when multiple lines are added.-->
-                                        <!--</ag-hint>-->
+                                    <!--<ag-hint>-->
+                                    <!--A great big textarea, which will maintain it's current size when multiple lines are added.-->
+                                    <!--</ag-hint>-->
                                     <!--</ag-hints>-->
                                 </ag-floating-label>
                             </div>
