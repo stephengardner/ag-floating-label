@@ -93,6 +93,6 @@
 			});
 		}
 	}
-	angular.module('agFloatingLabel')
-		.directive('agHint', agHintDirective)
+	// angular.module('agFloatingLabel')
+	// 	.directive('agHint', agHintDirective)
 })(window.angular);

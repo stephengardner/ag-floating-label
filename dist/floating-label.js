@@ -97,8 +97,8 @@
 			});
 		}
 	}
-	angular.module('agFloatingLabel')
-		.directive('agHint', agHintDirective)
+	// angular.module('agFloatingLabel')
+	// 	.directive('agHint', agHintDirective)
 })(window.angular);
 (function (angular) {
 	var visibilityDirectives = ['ngIf', 'ngShow', 'ngHide', 'ngSwitchWhen', 'ngSwitchDefault'];
@@ -1087,8 +1087,8 @@ var divtag     = document.querySelector("div");
 	}
 	ngMessageDirective.$inject = ["$agUtil"];
 
-	angular.module('agFloatingLabel')
-		.directive('ngMessage', ngMessageDirective)
+	// angular.module('agFloatingLabel')
+	// 	.directive('ngMessage', ngMessageDirective)
 })(window.angular);
 (function (angular) {
 
