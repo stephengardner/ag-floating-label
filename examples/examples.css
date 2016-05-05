@@ -5749,6 +5749,11 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+.no-animate {
+  transition: none !important;
+  transform: none;
+  -webkit-transform: none; }
+
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -11498,6 +11503,11 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+
+.no-animate {
+  transition: none !important;
+  transform: none;
+  -webkit-transform: none; }
 
 /**
  * Responsive mixin. The media breakpoints are as defined
