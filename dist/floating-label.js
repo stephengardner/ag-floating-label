@@ -451,8 +451,8 @@
 		}
 	}
 
-	angular.module('agFloatingLabel')
-		.directive('agMessagesAutoPosition', agMessagesAutoPosition)
+	// angular.module('agFloatingLabel')
+	// 	.directive('agMessagesAutoPosition', agMessagesAutoPosition)
 })(window.angular);
 
 function getElementOffset(element)
