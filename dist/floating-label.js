@@ -958,15 +958,15 @@ var divtag     = document.querySelector("div");
 			element.addClass('ag-input');
 			element
 				.on('focus', function(ev) {
-					$agUtil.nextTick(function() {
-						containerCtrl.setFocused(true);
-					});
+					// $agUtil.nextTick(function() {
+					// 	containerCtrl.setFocused(true);
+					// });
 				})
 				.on('blur', function(ev) {
-					$agUtil.nextTick(function(){
-						containerCtrl.setFocused(false);
-						inputCheckValue();
-					});
+					// $agUtil.nextTick(function(){
+					// 	containerCtrl.setFocused(false);
+					// 	inputCheckValue();
+					// });
 				});
 			function inputCheckValue() {
 				// An input's value counts if its length > 0,
