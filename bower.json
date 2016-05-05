@@ -20,12 +20,11 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "angular": "1.5.x",
-    "angular-mocks": "1.5.x",
     "bootstrap-sass": "^3.3.6"
   },
   "dependencies": {
-    "angular-messages": "^1.5.5",
-    "angular-animate": "^1.5.5"
+    "angular": "1.4.3",
+    "angular-messages": "1.4.3",
+    "angular-animate": "1.4.3"
   }
 }
