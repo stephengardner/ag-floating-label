@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="demo" ng-controller="DemoController">
 <head>
-    <title>Floating Label Demo</title>
+    <title>Ag Floating Label Demo</title>
     <link rel="stylesheet" type="text/css" href="../dist/floating-label.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -42,7 +42,7 @@
 <div class="jumbotron">
     <div class="container">
         <h1>Floating Label Inputs for AngularJS</h1>
-        <h2>Brought to you by ag-floating-label</h2>
+        <h2>Brought to you by <code>&lt;ag-floating-label></code></h2>
     </div>
 </div>
 <div class="container forms-container">
@@ -207,9 +207,9 @@
                                         <option value="DC">Neither</option>
                                         <option value="DC">Both</option>
                                     </select>
-                                    <div ng-messages="bootstrapForm.gender.$error">
-                                        <div ng-message="required">This field is required</div>
-                                    </div>
+                                    <!--<div ng-messages="bootstrapForm.gender.$error">-->
+                                        <!--<div ng-message="required">This field is required</div>-->
+                                    <!--</div>-->
                                 </ag-floating-label>
                             </div>
                         </div>
@@ -218,11 +218,11 @@
                                 <ag-floating-label>
                                     <label>Comments</label>
                                     <textarea rows="4" ag-no-autogrow></textarea>
-                                    <ag-hints>
-                                        <ag-hint>
-                                            A great big textarea, which will maintain it's current size when multiple lines are added.
-                                        </ag-hint>
-                                    </ag-hints>
+                                    <!--<ag-hints>-->
+                                        <!--<ag-hint>-->
+                                            <!--A great big textarea, which will maintain it's current size when multiple lines are added.-->
+                                        <!--</ag-hint>-->
+                                    <!--</ag-hints>-->
                                 </ag-floating-label>
                             </div>
                         </div>

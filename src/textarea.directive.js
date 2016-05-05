@@ -75,7 +75,7 @@
 			var label = containerCtrl.element[0].querySelector('label');
 			wrapInput(scope, element);
 			scope.inputWrapper.prepend(label);
-			
+
 			ngModelCtrl.$parsers.push(ngModelPipelineCheckValue);
 			ngModelCtrl.$formatters.push(ngModelPipelineCheckValue);
 
@@ -237,5 +237,6 @@
 
 	inputTextareaDirective.$inject = ["$agUtil", "$window"];
 
-	angular.module('agFloatingLabel').directive('textarea', inputTextareaDirective);
+	angular.module('agFloatingLabel')
+		.directive('textarea', inputTextareaDirective);
 })(window.angular);

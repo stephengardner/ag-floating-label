@@ -25,7 +25,7 @@ We've got you covered.
 Less than `50KB` for the `.js` and `.css` file, compared to Angular Material which is `700KB` minified and `1,500KB` unminified
 
 ## Design.
-![alt text](http://stephengardner.github.io/ag-floating-label/gh-pages-assets/ag-floating-label1.png "Angular Floating Label Example")
+![alt text](http://stephengardner.github.io/ag-floating-label/gh-pages-assets/ag-floating-label-1.png "Angular Floating Label Example")
 
 ## Material-Design-Approved
 Inspired by Google's Material Design and [Angular material](https://material.angularjs.org/latest/demo/input).

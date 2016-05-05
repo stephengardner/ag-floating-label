@@ -27,19 +27,16 @@
 			var hasNgModel = !!ctrls[1];
 			var ngModelCtrl = ctrls[1];
 			var isReadonly = angular.isDefined(attr.readonly);
-			if (!containerCtrl) return;
+			if (!containerCtrl)	return;
 			if(!ngModelCtrl) {
-				console.warn('a select directive called without an ngModel');
+				if(console && console.warn) {
+					console.warn('A select directive has been created without an ngModel.  This is likely not intentional');
+				}
 				return;
 			}
 			if (containerCtrl.input) {
 				throw new Error("<md-input-container> can only have *one* <input>, <textarea> or <md-select> child element!");
 			}
-
-			// var isErrorGetter = containerCtrl.isErrorGetter || function() {
-			// 		console.log("Returning ", ngModelCtrl.$invalid + " && " + ngModelCtrl.$touched);
-			// 		return ngModelCtrl.$invalid && (ngModelCtrl.$touched || isParentFormSubmitted());
-			// 	};
 
 			var isParentFormSubmitted = function () {
 				var parent = false;//$mdUtil.getClosest(element, 'form');
@@ -51,15 +48,16 @@
 			var isErrorGetter = function() {
 				// added ngModelCtrl.$dirty
 				// $touched is only applied after exiting the input
-				return containerCtrl.isErrorGetter 
+				return containerCtrl.isErrorGetter
 					|| (ngModelCtrl.$invalid && (ngModelCtrl.$touched/* || ngModelCtrl.$dirty*/));
-			}
+			};
+
 			scope.$watch(function(){
 				return ngModelCtrl && ngModelCtrl.$touched
 			}, function(value) {
 				containerCtrl.setTouched(ngModelCtrl.$touched);
-			})
-			// scope.$watch(isErrorGetter, containerCtrl.setInvalid);
+			});
+
 			scope.$watch(isErrorGetter, containerCtrl.setInvalid);
 
 			// After selecting an input, we want to remove the highlighting
@@ -100,6 +98,7 @@
 
 			containerCtrl.input = element;
 			element.addClass('ag-input');
+			
 			element
 				.on('focus', function(ev) {
 					$agUtil.nextTick(function() {
@@ -112,11 +111,10 @@
 						containerCtrl.setFocused(false);
 					});
 				});
+
 			function inputCheckValue() {
 				// An input's value counts if its length > 0,
 				// or if the input's validity state says it has bad input (eg string in a number input)
-				console.log("element.val().length", element.val().length);
-				console.log("element.val()", element.val());
 				containerCtrl.setHasValue(element.val().indexOf("undefined:undefined") == -1 &&
 					(element.val().length > 0 || (element[0].validity || {}).badInput));
 			}

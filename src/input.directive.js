@@ -46,7 +46,7 @@
 			var isErrorGetter = function() {
 				// added ngModelCtrl.$dirty
 				// $touched is only applied after exiting the input
-				return containerCtrl.isErrorGetter 
+				return containerCtrl.isErrorGetter
 					|| (ngModelCtrl.$invalid && (ngModelCtrl.$touched/* || ngModelCtrl.$dirty*/));
 			}
 			scope.$watch(function(){

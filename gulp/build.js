@@ -5,6 +5,7 @@ var concat          = require('gulp-concat');
 var less            = require('gulp-less');
 var autoprefixer    = require('gulp-autoprefixer');
 var sass = require('gulp-sass');
+var strip = require('gulp-strip-comments');
 
 /**
  * Creates function for gulp task which will concatenate js sources files into 1 dist file
@@ -20,6 +21,7 @@ function scriptsTask(sources, output, dist)
         return gulp
             .src(sources)
             .pipe(concat(output))
+	        .pipe(strip())
             .pipe(gulp.dest(dist));
     };
 }

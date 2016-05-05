@@ -1,6 +1,9 @@
 (function(angular) {
     'use strict';
     var app = angular.module('agFloatingLabel', ['ngMessages', 'ngAnimate']);
+	app.config(function($animateProvider){
+		$animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/)
+	});
 })(window.angular);
 (function (angular) {
 	var visibilityDirectives = ['ngIf', 'ngShow', 'ngHide', 'ngSwitchWhen', 'ngSwitchDefault'];
@@ -715,9 +718,23 @@ function getElementOffset(element)
 					if (digest) $rootScope.$digest();
 				}
 			},
+			/**
+			 * Parses an attribute value, mostly a string.
+			 * By default checks for negated values and returns `false´ if present.
+			 * Negated values are: (native falsy) and negative strings like:
+			 * `false` or `0`.
+			 * @param value Attribute value which should be parsed.
+			 * @param negatedCheck When set to false, won't check for negated values.
+			 * @returns {boolean}
+			 */
+			parseAttributeBoolean: function (value, negatedCheck) {
+				return value === '' || !!value && (negatedCheck === false || value !== 'false' && value !== '0');
+			},
+
 			hasComputedStyle: hasComputedStyle
 		};
-		
+
+
 		return $agUtil;
 
 		function getNode(el) {
@@ -806,11 +823,10 @@ var divtag     = document.querySelector("div");
 				console.log("isFocused");
 				self.setHints(true);
 			}
-			else {
+			else { 
 				console.log("isNOTFocused");
 				self.setHints(false);
 			}
-			//self.setHints(isFocused && !self.invalid);
 		};
 		self.setInvalid = function(isInvalid) {
 			self.invalid = isInvalid;
@@ -921,7 +937,7 @@ var divtag     = document.querySelector("div");
 			var isErrorGetter = function() {
 				// added ngModelCtrl.$dirty
 				// $touched is only applied after exiting the input
-				return containerCtrl.isErrorGetter 
+				return containerCtrl.isErrorGetter
 					|| (ngModelCtrl.$invalid && (ngModelCtrl.$touched/* || ngModelCtrl.$dirty*/));
 			}
 			scope.$watch(function(){
@@ -1087,50 +1103,8 @@ var divtag     = document.querySelector("div");
 	}
 	ngMessageDirective.$inject = ["$agUtil"];
 
-	angular.module('agFloatingLabel')
-		.directive('ngMessage', ngMessageDirective)
-})(window.angular);
-(function (angular) {
-	function placeholderDirective() {
-		return {
-			restrict: 'A',
-			require: '^^?agFloatingLabel',
-			priority: 200,
-			link: postLink
-		};
-
-		function postLink(scope, element, attr, agFloatingLabel) {
-			// If there is no input container, just return
-			console.log("postLink");
-			if (!agFloatingLabel) return;
-			console.log("...postLink");
-
-			var label = agFloatingLabel.element.find('label');
-			var hasNoFloat = angular.isDefined(agFloatingLabel.element.attr('ag-no-float'));
-
-			console.log("label:", label);
-			// If we have a label, or they specify the md-no-float attribute, just return
-			if ((label && label.length) || hasNoFloat) {
-				// Add a placeholder class so we can target it in the CSS
-				agFloatingLabel.setHasPlaceholder(true);
-				return;
-			}
-
-			// Otherwise, grab/remove the placeholder
-			var placeholderText = attr.placeholder;
-			element.removeAttr('placeholder');
-
-			// And add the placeholder text as a separate label
-			if (agFloatingLabel.input && agFloatingLabel.input[0].nodeName != 'MD-SELECT') {
-				var placeholder = '<label ng-click="delegateClick()">' + placeholderText + '</label>';
-
-				agFloatingLabel.element.addClass('ag-icon-float');
-				agFloatingLabel.element.prepend(placeholder);
-			}
-		}
-	}
-	angular.module('agFloatingLabel')
-		.directive('placeholder', placeholderDirective)
+	// angular.module('agFloatingLabel')
+	// 	.directive('ngMessage', ngMessageDirective)
 })(window.angular);
 (function (angular) {
 
@@ -1161,19 +1135,16 @@ var divtag     = document.querySelector("div");
 			var hasNgModel = !!ctrls[1];
 			var ngModelCtrl = ctrls[1];
 			var isReadonly = angular.isDefined(attr.readonly);
-			if (!containerCtrl) return;
+			if (!containerCtrl)	return;
 			if(!ngModelCtrl) {
-				console.warn('a select directive called without an ngModel');
+				if(console && console.warn) {
+					console.warn('A select directive has been created without an ngModel.  This is likely not intentional');
+				}
 				return;
 			}
 			if (containerCtrl.input) {
 				throw new Error("<md-input-container> can only have *one* <input>, <textarea> or <md-select> child element!");
 			}
-
-			// var isErrorGetter = containerCtrl.isErrorGetter || function() {
-			// 		console.log("Returning ", ngModelCtrl.$invalid + " && " + ngModelCtrl.$touched);
-			// 		return ngModelCtrl.$invalid && (ngModelCtrl.$touched || isParentFormSubmitted());
-			// 	};
 
 			var isParentFormSubmitted = function () {
 				var parent = false;//$mdUtil.getClosest(element, 'form');
@@ -1185,15 +1156,16 @@ var divtag     = document.querySelector("div");
 			var isErrorGetter = function() {
 				// added ngModelCtrl.$dirty
 				// $touched is only applied after exiting the input
-				return containerCtrl.isErrorGetter 
+				return containerCtrl.isErrorGetter
 					|| (ngModelCtrl.$invalid && (ngModelCtrl.$touched/* || ngModelCtrl.$dirty*/));
-			}
+			};
+
 			scope.$watch(function(){
 				return ngModelCtrl && ngModelCtrl.$touched
 			}, function(value) {
 				containerCtrl.setTouched(ngModelCtrl.$touched);
-			})
-			// scope.$watch(isErrorGetter, containerCtrl.setInvalid);
+			});
+
 			scope.$watch(isErrorGetter, containerCtrl.setInvalid);
 
 			// After selecting an input, we want to remove the highlighting
@@ -1234,6 +1206,7 @@ var divtag     = document.querySelector("div");
 
 			containerCtrl.input = element;
 			element.addClass('ag-input');
+			
 			element
 				.on('focus', function(ev) {
 					$agUtil.nextTick(function() {
@@ -1246,11 +1219,10 @@ var divtag     = document.querySelector("div");
 						containerCtrl.setFocused(false);
 					});
 				});
+
 			function inputCheckValue() {
 				// An input's value counts if its length > 0,
 				// or if the input's validity state says it has bad input (eg string in a number input)
-				console.log("element.val().length", element.val().length);
-				console.log("element.val()", element.val());
 				containerCtrl.setHasValue(element.val().indexOf("undefined:undefined") == -1 &&
 					(element.val().length > 0 || (element[0].validity || {}).badInput));
 			}
@@ -1336,7 +1308,7 @@ var divtag     = document.querySelector("div");
 			var label = containerCtrl.element[0].querySelector('label');
 			wrapInput(scope, element);
 			scope.inputWrapper.prepend(label);
-			
+
 			ngModelCtrl.$parsers.push(ngModelPipelineCheckValue);
 			ngModelCtrl.$formatters.push(ngModelPipelineCheckValue);
 
@@ -1498,5 +1470,6 @@ var divtag     = document.querySelector("div");
 
 	inputTextareaDirective.$inject = ["$agUtil", "$window"];
 
-	angular.module('agFloatingLabel').directive('textarea', inputTextareaDirective);
+	angular.module('agFloatingLabel')
+		.directive('textarea', inputTextareaDirective);
 })(window.angular);

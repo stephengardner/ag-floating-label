@@ -76,11 +76,10 @@ var divtag     = document.querySelector("div");
 				console.log("isFocused");
 				self.setHints(true);
 			}
-			else {
+			else { 
 				console.log("isNOTFocused");
 				self.setHints(false);
 			}
-			//self.setHints(isFocused && !self.invalid);
 		};
 		self.setInvalid = function(isInvalid) {
 			self.invalid = isInvalid;

@@ -124,7 +124,7 @@
   .ag-floating-label ~ .floating-label {
     padding-top: 20px; }
   .ag-floating-label .ag-floating-label-underline {
-    background-color: #3C3CF5;
+    background-color: blue;
     bottom: 0;
     content: '';
     height: 2px;
@@ -140,7 +140,7 @@
     -webkit-transform: translate3d(0em, -1.6em, 0) scale(0.75);
             transform: translate3d(0em, -1.6em, 0) scale(0.75); }
   .ag-floating-label.ag-input-focused.ag-input-focused label {
-    color: #3C3CF5; }
+    color: blue; }
   .ag-floating-label.ag-input-focused.ag-input-focused .ag-floating-label-underline {
     left: 0;
     visibility: visible;
