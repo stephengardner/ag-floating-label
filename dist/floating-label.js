@@ -955,7 +955,7 @@ var divtag     = document.querySelector("div");
 			// }
 			//
 			// containerCtrl.input = element;
-			element.addClass('ag-input');
+			// element.addClass('ag-input');
 			// element
 			// 	.on('focus', function(ev) {
 			// 		// $agUtil.nextTick(function() {
