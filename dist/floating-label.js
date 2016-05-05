@@ -870,8 +870,8 @@ var divtag     = document.querySelector("div");
 
 	// Create
 	angular
-		.module('agFloatingLabel')
-		.directive('agFloatingLabel', floatingLabelDefinition);
+		// .module('agFloatingLabel')
+		// .directive('agFloatingLabel', floatingLabelDefinition);
 })(window.angular);
 (function (angular) {
 
