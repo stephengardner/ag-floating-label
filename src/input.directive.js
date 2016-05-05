@@ -49,11 +49,11 @@
 				return containerCtrl.isErrorGetter 
 					|| (ngModelCtrl.$invalid && (ngModelCtrl.$touched/* || ngModelCtrl.$dirty*/));
 			}
-			scope.$watch(function(){
-				return ngModelCtrl.$touched
-			}, function(value) {
-				// containerCtrl.setTouched(ngModelCtrl.$touched);
-			})
+			// scope.$watch(function(){
+			// 	return ngModelCtrl.$touched
+			// }, function(value) {
+			// 	// containerCtrl.setTouched(ngModelCtrl.$touched);
+			// })
 			// scope.$watch(isErrorGetter, containerCtrl.setInvalid);
 			// scope.$watch(isErrorGetter, containerCtrl.setInvalid);
 
@@ -71,8 +71,8 @@
 				scope.inputWrapper.after(errorsSpacer);
 			}
 
-			ngModelCtrl.$parsers.push(ngModelPipelineCheckValue);
-			ngModelCtrl.$formatters.push(ngModelPipelineCheckValue);
+			// ngModelCtrl.$parsers.push(ngModelPipelineCheckValue);
+			// ngModelCtrl.$formatters.push(ngModelPipelineCheckValue);
 
 			function ngModelPipelineCheckValue(arg) {
 				// containerCtrl.setHasValue(!ngModelCtrl.$isEmpty(arg));
