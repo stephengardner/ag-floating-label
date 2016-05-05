@@ -16,7 +16,7 @@ npm-debug.log
 
 # gh-pages
 # gh-pages-assets
-bower_components
+# bower_components
 
 config.js
 .tmp
