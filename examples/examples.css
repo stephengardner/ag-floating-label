@@ -5753,6 +5753,10 @@ button.close {
   transition: none !important;
   transform: none;
   -webkit-transform: none; }
+  .no-animate * {
+    transition: none !important;
+    transform: none;
+    -webkit-transform: none; }
 
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
@@ -11508,6 +11512,10 @@ button.close {
   transition: none !important;
   transform: none;
   -webkit-transform: none; }
+  .no-animate * {
+    transition: none !important;
+    transform: none;
+    -webkit-transform: none; }
 
 /**
  * Responsive mixin. The media breakpoints are as defined

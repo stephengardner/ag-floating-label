@@ -7,4 +7,10 @@ $grid-gutter-width: 10px;
 	transition: none !important;
 	transform: none;
 	-webkit-transform: none;
+	* {
+		-webkit-transition: none !important;
+		transition: none !important;
+		transform: none;
+		-webkit-transform: none;
+	}
 }
