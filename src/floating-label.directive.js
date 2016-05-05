@@ -126,7 +126,7 @@ var divtag     = document.querySelector("div");
 	 */
 	function floatingLabelDefinition() {
 		return {
-			restrict: 'A',
+			restrict: 'E',
 			scope: true,
 			link: postLink,
 			transclude : true,

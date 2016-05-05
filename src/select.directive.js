@@ -1,6 +1,6 @@
 (function (angular) {
 
-	function selectDirective($timeout) {
+	function selectDirective($agUtil) {
 		return {
 			restrict : 'E',
 			require: ['^?agFloatingLabel', '?ngModel'],
@@ -69,9 +69,13 @@
 			}, function(value){
 				if(value) {
 					// blur it because the class is being set below.  We need to blur it as well
-					element[0].blur();
-					containerCtrl.setFocused(false);
 					inputCheckValue();
+					// caused problems with error:required still showing up after selection.
+					// todo - see if this is still necessary
+					$agUtil.nextTick(function(){
+						// element[0].blur();
+					})
+					containerCtrl.setFocused(false);
 				}
 			})
 
@@ -98,14 +102,14 @@
 			element.addClass('ag-input');
 			element
 				.on('focus', function(ev) {
-					$timeout(function() {
+					$agUtil.nextTick(function() {
 						containerCtrl.setFocused(true);
 					});
 				})
 				.on('blur', function(ev) {
-					$timeout(function() {
-						containerCtrl.setFocused(false);
+					$agUtil.nextTick(function() {
 						inputCheckValue();
+						containerCtrl.setFocused(false);
 					});
 				});
 			function inputCheckValue() {
@@ -113,10 +117,11 @@
 				// or if the input's validity state says it has bad input (eg string in a number input)
 				console.log("element.val().length", element.val().length);
 				console.log("element.val()", element.val());
-				containerCtrl.setHasValue(element.val().length > 0 || (element[0].validity || {}).badInput);
+				containerCtrl.setHasValue(element.val().indexOf("undefined:undefined") == -1 &&
+					(element.val().length > 0 || (element[0].validity || {}).badInput));
 			}
 		}
 	}
 	angular.module('agFloatingLabel')
-		.directive('select', selectDirective)
+		.directive('select', ['$agUtil', selectDirective])
 })(window.angular);

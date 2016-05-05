@@ -1,5 +1,5 @@
 // standard defaults
-$ag-floating-label-color-primary : blue;
+$ag-floating-label-color-primary : #3C3CF5;;
 $ag-floating-label-color-error : red;
 $ag-floating-label-underline-color-default : #ccc;
 $ag-floating-label-placeholder-color-default : #aaa;
@@ -29,6 +29,8 @@ $ag-input-group-addon-default-font-size: 1em;
 // errors spacer
 $ag-floating-label-show-errors-spacer : true;
 
+// input padding
+$ag-floating-label-input-default-padding-top : 3px;
 .form-group {
 	margin:0!important;
 	margin-bottom:0!important;
@@ -42,6 +44,13 @@ $ag-floating-label-show-errors-spacer : true;
 		display: table;
 		clear: both;
 	}
+
+	//
+	//padding: $ag-floating-label-input-padding-size 2px;
+	.ag-input {
+		padding: 2px;
+	}
+
 
 	// This is also required, to add margins and again, reset the floats.
 	// We could not have margins on the main element and also clearfix it properly.
@@ -102,9 +111,8 @@ $ag-floating-label-show-errors-spacer : true;
 		display: block;
 		margin-top: 0;
 		background: 0 0;
-		padding: 2px 2px 1px;
+		//padding: $ag-floating-label-input-default-padding-top 2px 3px 1px;
 		border-width: 0 0 1px;
-		line-height: 26px;
 		//height: 30px;
 		//-ms-flex-preferred-size: 26px;
 		border-radius: 0;
@@ -122,6 +130,12 @@ $ag-floating-label-show-errors-spacer : true;
 			display: table;
 			clear: both;
 		}
+	}
+	select {
+		// fix - select boxes are two pixels smaller than other input boxes.
+		// Check to make sure something's not amiss here.
+		// This could change if someone enters a different input size.
+		//padding-top:$ag-floating-label-input-default-padding-top+2;
 	}
 
 	// Necessary for the underline element to render correctly
@@ -164,7 +178,6 @@ $ag-floating-label-show-errors-spacer : true;
 			outline:0;
 		}
 		position: relative;
-		padding: $ag-floating-label-input-padding-size 2px;
 		border:none;
 		border-bottom: 2px solid $ag-floating-label-underline-color-default;
 		border-radius:0;

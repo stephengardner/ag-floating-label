@@ -24,6 +24,15 @@ function scriptsTask(sources, output, dist)
     };
 }
 
+function stylesSassExamplesTask(sources, output, dist) {
+	return function() {
+		return gulp.src(sources)
+			.pipe(concat(output))
+			.pipe(sass())
+			.pipe(autoprefixer('last 2 version', 'ie 9', 'ie 10', 'ie 11'))
+			.pipe(gulp.dest(dist));
+	}
+}
 function copySassTask(sources, dist) {
 	return function ()
 	{
@@ -55,5 +64,11 @@ function stylesTask(sources, output, dist)
 module.exports = {
     scriptsTask: scriptsTask,
 	stylesTask: stylesTask,
-	copySassTask: copySassTask
+	copySassTask: copySassTask,
+	stylesSassExamplesTask: stylesSassExamplesTask,
+	styles : {
+		sass : {
+			examples : stylesSassExamplesTask
+		}
+	}
 };

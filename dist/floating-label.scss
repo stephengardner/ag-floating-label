@@ -1,19 +1,24 @@
+// standard defaults
 $ag-floating-label-color-primary : blue;
 $ag-floating-label-color-error : red;
 $ag-floating-label-underline-color-default : #ccc;
 $ag-floating-label-placeholder-color-default : #aaa;
-$ag-floating-label-input-font-size : 18px;
+$ag-floating-label-input-font-size : 16px;
 $ag-floating-label-input-padding-size : .2em;
 $ag-floating-label-input-y-translate-starting-position : #{-$ag-floating-label-input-padding-size - .1em};
-$ag-floating-label-input-y-translate-ending-scale : .7;
+$ag-floating-label-input-y-translate-ending-scale : .75;
 $ag-floating-label-input-y-translate-ending-position : -1.6em;
 
+// errors spacer
 $ag-floating-label-default-margin-top: -$ag-floating-label-input-y-translate-ending-position / 3;
 
+// hints
 $ag-hints-color-default : #999;
 $ag-hints-font-size-default : 13px;
 $ag-hints-padding-top-default : .2em;
 $ag-hints-padding-bottom-default : .1em;
+
+// error messages
 $ag-floating-label-ng-message-padding-top-default : .2em;
 $ag-floating-label-ng-message-padding-bottom-default : .1em;
 
@@ -24,26 +29,43 @@ $ag-input-group-addon-default-font-size: 1em;
 // errors spacer
 $ag-floating-label-show-errors-spacer : true;
 
+// input padding
+$ag-floating-label-input-default-padding-top : 3px;
 .form-group {
 	margin:0!important;
 	margin-bottom:0!important;
 }
 [ag-floating-label], .ag-floating-label, ag-floating-label {
-	clear: both;
-	&:before, &:after {
-		content: "";
+	// This makes so the errors spacer is a block level object and pushed things down.
+	// This is required on this element
+	// Otherwise, we'll see height discrepancies when bootstrap wrappers are placed around one directive.
+	&:after {
+		content: '';
 		display: table;
+		clear: both;
 	}
+
+	//
+	//padding: $ag-floating-label-input-padding-size 2px;
+	.ag-input {
+		padding: 2px;
+	}
+
+
+	// This is also required, to add margins and again, reset the floats.
+	// We could not have margins on the main element and also clearfix it properly.
 	.ag-floating-label-content-wrapper {
-		margin: 18px 0;
-		margin-top: $ag-floating-label-default-margin-top!important;
+		margin-bottom: 18px;
+		margin-top: $ag-floating-label-default-margin-top;
 		&:before, &:after {
 			content: "";
 			display: table;
+			clear:both;
 		}
 	}
+
+	// reset textarea
 	textarea {
-		// reset textarea styles
 		resize: none;
 		overflow: hidden;
 		-webkit-appearance: none;
@@ -53,6 +75,34 @@ $ag-floating-label-show-errors-spacer : true;
 		height: inherit;
 		overflow-y: auto;
 	}
+
+	// reset label
+	label {
+		font-weight: normal;
+		color: $ag-floating-label-placeholder-color-default;
+		position: absolute;
+		z-index: 1;
+		top: .5em;
+		left: 0;
+		font-size: 1em;
+		order: 1;
+		pointer-events: none;
+		transform-origin: left top;
+		transform: translate3d(0, $ag-floating-label-input-y-translate-starting-position, 0) scale(1);
+		transition: transform cubic-bezier(.25, .8, .25, 1) .25s;
+		white-space: nowrap;
+		text-overflow:ellipsis;
+		max-width:100%;
+		overflow:hidden;
+	}
+
+	// Hide the label until the directive has been applied.  The class will be added dynamically
+	&:not(.ag-floating-label) {
+		label {
+			display:none;
+		}
+	}
+
 	.ag-input {
 		&:focus {
 			outline:0;
@@ -61,9 +111,8 @@ $ag-floating-label-show-errors-spacer : true;
 		display: block;
 		margin-top: 0;
 		background: 0 0;
-		padding: 2px 2px 1px;
+		//padding: $ag-floating-label-input-default-padding-top 2px 3px 1px;
 		border-width: 0 0 1px;
-		line-height: 26px;
 		//height: 30px;
 		//-ms-flex-preferred-size: 26px;
 		border-radius: 0;
@@ -82,6 +131,14 @@ $ag-floating-label-show-errors-spacer : true;
 			clear: both;
 		}
 	}
+	select {
+		// fix - select boxes are two pixels smaller than other input boxes.
+		// Check to make sure something's not amiss here.
+		// This could change if someone enters a different input size.
+		//padding-top:$ag-floating-label-input-default-padding-top+2;
+	}
+
+	// Necessary for the underline element to render correctly
 	.ag-floating-label-input-wrapper {
 		&:after {
 			content: '';
@@ -89,18 +146,6 @@ $ag-floating-label-show-errors-spacer : true;
 			clear: both;
 		}
 	}
-	// This makes so the errors spacer is a block level object and pushed things down.
-	&:after {
-		content: '';
-		display: table;
-		clear: both;
-	}
-	//.ag-floating-label {
-	//	&.control-group {
-	//		margin-top: $ag-floating-label-default-margin-top!important;
-	//	}
-		//margin-top: $ag-floating-label-default-margin-top;
-	//}
 
 	.ag-errors-spacer {
 		float: right;
@@ -116,6 +161,7 @@ $ag-floating-label-show-errors-spacer : true;
 		overflow: hidden;
 		clear: left;
 	}
+
 	ng-message, [ng-message] {
 		margin-top:0;
 		font-size: 12px;
@@ -126,17 +172,12 @@ $ag-floating-label-show-errors-spacer : true;
 		padding: $ag-floating-label-ng-message-padding-top-default 0
 		$ag-floating-label-ng-message-padding-bottom-default 0;
 	}
-	&:not(.ag-floating-label) {
-		label {
-			display:none;
-		}
-	}
+
 	input,select {
 		&:focus {
 			outline:0;
 		}
 		position: relative;
-		padding: $ag-floating-label-input-padding-size 2px;
 		border:none;
 		border-bottom: 2px solid $ag-floating-label-underline-color-default;
 		border-radius:0;
@@ -150,35 +191,18 @@ $ag-floating-label-show-errors-spacer : true;
 	}
 }
 
+// Only for the VISIBLE specification, as .ag-floating-label will be applied After-the-rendering
 .ag-floating-label {
 	.ag-floating-label-input-wrapper {
 		position: relative;
 	}
+
 	position: relative;
 	font-size: $ag-floating-label-input-font-size;
 	display: block;
 
 	~ .floating-label {
 		padding-top: 20px;
-	}
-
-	label {
-		color: $ag-floating-label-placeholder-color-default;
-		position: absolute;
-		z-index: 1;
-		top: .5em;
-		left: 0;
-		font-size: 1em;
-		order: 1;
-		pointer-events: none;
-		transform-origin: left top;
-		transform: translate3d(0, $ag-floating-label-input-y-translate-starting-position, 0) scale(1);
-		transition: transform cubic-bezier(.25, .8, .25, 1) .25s;
-		white-space: nowrap;
-		text-overflow:ellipsis;
-		max-width:100%;
-		overflow:hidden;
-
 	}
 
 	.ag-floating-label-underline {
@@ -199,11 +223,13 @@ $ag-floating-label-show-errors-spacer : true;
 			background-color: $ag-floating-label-color-error;
 		}
 	}
+
 	&.ag-input-has-placeholder, &.ag-input-has-value, &.ag-input-focused {
 		label {
 			transform: translate3d(0em, $ag-floating-label-input-y-translate-ending-position, 0) scale($ag-floating-label-input-y-translate-ending-scale);
 		}
 	}
+
 	&.ag-input-focused {
 		&.ag-input-focused {
 			label {
@@ -216,6 +242,7 @@ $ag-floating-label-show-errors-spacer : true;
 			}
 		}
 	}
+
 	&.ag-input-invalid {
 		[ag-hints], .ag-hints {
 			//display:none;
@@ -266,19 +293,9 @@ $ag-floating-label-show-errors-spacer : true;
 	[ng-message-exp], [data-ng-message-exp], [x-ng-message-exp],
 	.md-char-counter, .ag-hints, .ag-hint {
 		overflow: hidden;
-
 		// Default state for messages is to be visible
 		opacity: 1;
 		margin-top: 0;
-
-		// Add some top padding which is equal to half the difference between the expected height
-		// and the actual height
-
-		&:not(.md-char-counter) {
-			// Add some padding so that the messages don't touch the character counter
-			//@include rtl(padding-right, rem(0.5), 0);
-			//@include rtl(padding-left, 0, rem(0.5));
-		}
 	}
 
 	// AG- Workaround for errors such as when adding a minlength error on an input, since these errors automatically pop
@@ -291,6 +308,7 @@ $ag-floating-label-show-errors-spacer : true;
 			display:none;
 		}
 	}
+
 	.ag-input-group {
 			position: relative;
 			display: table;

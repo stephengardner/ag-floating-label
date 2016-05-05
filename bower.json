@@ -1,12 +1,15 @@
 {
   "name": "ag-floating-label",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/stephengardner/ag-floating-label",
   "authors": [
     "Stephen Gardner <opensourceaugie@gmail.com>"
   ],
   "description": "Floating label directive for AngularJs - Based on Angular Material",
-  "main": "dist/floating-label.js",
+  "main": [
+    "dist/floating-label.js",
+    "dist/floating-label.css"
+  ],
   "keywords": [
     "angular",
     "angularjs",

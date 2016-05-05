@@ -1,0 +1,98 @@
+@import 'bootstrap';
+/**
+ * Responsive mixin. The media breakpoints are as defined
+ * in the twitter bootstrap framework:
+ *
+ * - phone
+ * - tablet-portrait
+ * - tablet-landscape-desktop
+ * - large-desktop
+ *
+ * Additional parameters for tagetting retina and non-retina
+ * devices
+ *
+ * - retina
+ * - non-retina
+ *
+ * Moreover, a specific value in px can be passed which is
+ * used to generate a max-width media query.
+ */
+@mixin respond-to($media) {
+	/* Landscape phones and down */
+	@if $media == xs {
+		@media (max-width: 480px) { @content; }
+	}
+		/* Landscape phone to portrait tablet */
+	@else if $media == sm {
+		@media (max-width: 767px) {@content; }
+	}
+		/* Portrait tablet to landscape and desktop */
+	@else if $media == md {
+		@media (min-width: 768px) and (max-width: 979px) { @content; }
+	}
+		/* Large desktop */
+	@else if $media == lg {
+		@media (min-width: 1200px) { @content; }
+	}
+		// Non-Retina
+	@else if $media == non-retina {
+		@media screen and (-webkit-max-device-pixel-ratio: 1) { @content; }
+	}
+		// Retina Only
+	@else if $media == retina {
+		@media screen and (-webkit-min-device-pixel-ratio: 2) { @content; }
+	}
+		// Specific max width
+	@else {
+		@media only screen and (max-width: #{$media}px) { @content; }
+	}
+}
+
+.navbar {
+	// keep these things right and left, no submenu at the moment.
+	.navbar-header {
+		float:left;
+	}
+	.navbar-right {
+		float:right;
+	}
+}
+
+.jumbotron {
+	background-color: #FF3B00;
+	color: white;
+	padding:8rem 0;
+	h2 {
+		transition: all .6s;
+		font-size: 2em;
+	}
+	@include respond-to(xs) {
+		h2 {
+			font-size: 1.6em;
+		}
+	}
+}
+
+.forms-container {
+	@include respond-to(lg) {
+		//width:400px;
+	}
+	.title {
+		color: #333;
+		margin-bottom:4rem;
+		border-bottom:1px solid #ddd;
+	}
+}
+
+.demos-footer {
+	h1 {
+		margin-bottom:3rem;
+	}
+	.h4 {
+		margin-top:3rem;
+	}
+	text-align:center;
+}
+body {
+	padding-bottom:50px;
+}

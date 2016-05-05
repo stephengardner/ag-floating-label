@@ -12,18 +12,27 @@ var config = {
 		],
 		dest : './dist/'
 	},
-    paths: {
-        karmaConfigFile: __dirname + '/test/karma.conf.js',
-	    jsSources : [
-		    './src/floating-label.module.js',
-		    './src/*.js'
-	    ],
-	    sassSources : [ './src/*.scss' ],
+	styles : {
+		sass : {
+			examples : {
+				sources : ['./examples/*.scss'],
+				output : 'examples.css',
+				dest : './examples/'
+			}
+		}
+	},
+	paths: {
+		karmaConfigFile: __dirname + '/test/karma.conf.js',
+		jsSources : [
+			'./src/floating-label.module.js',
+			'./src/*.js'
+		],
+		sassSources : [ './src/*.scss' ],
 
-        dist: './dist/',
-        jsOutputFile: 'floating-label.js',
-        cssOutputFile: 'floating-label.css'
-    }
+		dist: './dist/',
+		jsOutputFile: 'floating-label.js',
+		cssOutputFile: 'floating-label.css'
+	}
 };
 
 gulp.task('jshint', gulpTest.jsHintTask(config.paths.jsSources));
@@ -33,9 +42,9 @@ gulp.task('karma', gulpTest.karmaTask(config.paths.karmaConfigFile));
 gulp.task('test', ['jshint', 'karma']);
 
 gulp.task('scripts', gulpBuild.scriptsTask(
-    config.paths.jsSources,
-    config.paths.jsOutputFile,
-    config.paths.dist
+	config.paths.jsSources,
+	config.paths.jsOutputFile,
+	config.paths.dist
 ));
 
 gulp.task('styles', gulpBuild.stylesTask(
@@ -108,12 +117,21 @@ gulp.task('server', function(){
 });
 
 gulp.task('watch', function() {
-	gulp.watch('src/*.scss', ['styles']);
+	gulp.watch('src/*.scss', ['styles', 'styles:sass:examples']);
 	gulp.watch('src/**/*.js', ['scripts']);
+	gulp.watch('examples/**/*.scss', ['styles:sass:examples']);
 	// gulp.watch('src/index.html', notifyLivereload);
 	gulp.watch('dist/*', notifyLivereload);
+	gulp.watch('examples/*.css', notifyLivereload);
+	gulp.watch('examples/index.html', notifyLivereload);
 });
 
-gulp.task('build', [/*'test', */'styles', 'copySass', 'scripts']);
+gulp.task('styles:sass:examples', gulpBuild.styles.sass.examples(
+	config.styles.sass.examples.sources,
+	config.styles.sass.examples.output,
+	config.styles.sass.examples.dest)
+);
+
+gulp.task('build', [/*'test', */'styles', 'styles:sass:examples', 'copySass', 'scripts']);
 
 gulp.task('default', ['server', 'build', 'watch']);
