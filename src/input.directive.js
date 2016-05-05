@@ -57,19 +57,19 @@
 			// scope.$watch(isErrorGetter, containerCtrl.setInvalid);
 			// scope.$watch(isErrorGetter, containerCtrl.setInvalid);
 
-			var label = containerCtrl.element[0].querySelector('label');
-			wrapInput(scope, element);
-			scope.inputWrapper.prepend(label);
+			// var label = containerCtrl.element[0].querySelector('label');
+			// wrapInput(scope, element);
+			// scope.inputWrapper.prepend(label);
 
 			// Add an error spacer div after our input to provide space for the char counter and any ng-messages
-			var errorsSpacer = angular.element('<div class="ag-errors-spacer">');
-			var inputGroup = containerCtrl.element[0].querySelector('.ag-input-group, .input-group');
-			if(inputGroup) {
-				angular.element(inputGroup).after(errorsSpacer);
-			}
-			else {
-				scope.inputWrapper.after(errorsSpacer);
-			}
+			// var errorsSpacer = angular.element('<div class="ag-errors-spacer">');
+			// var inputGroup = containerCtrl.element[0].querySelector('.ag-input-group, .input-group');
+			// if(inputGroup) {
+			// 	angular.element(inputGroup).after(errorsSpacer);
+			// }
+			// else {
+			// 	scope.inputWrapper.after(errorsSpacer);
+			// }
 
 			// ngModelCtrl.$parsers.push(ngModelPipelineCheckValue);
 			// ngModelCtrl.$formatters.push(ngModelPipelineCheckValue);
@@ -81,23 +81,23 @@
 
 			containerCtrl.input = element;
 			element.addClass('ag-input');
-			element
-				.on('focus', function(ev) {
-					// $agUtil.nextTick(function() {
-					// 	containerCtrl.setFocused(true);
-					// });
-				})
-				.on('blur', function(ev) {
-					// $agUtil.nextTick(function(){
-					// 	containerCtrl.setFocused(false);
-					// 	inputCheckValue();
-					// });
-				});
-			function inputCheckValue() {
-				// An input's value counts if its length > 0,
-				// or if the input's validity state says it has bad input (eg string in a number input)
-				containerCtrl.setHasValue(element.val().length > 0 || (element[0].validity || {}).badInput);
-			}
+			// element
+			// 	.on('focus', function(ev) {
+			// 		// $agUtil.nextTick(function() {
+			// 		// 	containerCtrl.setFocused(true);
+			// 		// });
+			// 	})
+			// 	.on('blur', function(ev) {
+			// 		// $agUtil.nextTick(function(){
+			// 		// 	containerCtrl.setFocused(false);
+			// 		// 	inputCheckValue();
+			// 		// });
+			// 	});
+			// function inputCheckValue() {
+			// 	// An input's value counts if its length > 0,
+			// 	// or if the input's validity state says it has bad input (eg string in a number input)
+			// 	containerCtrl.setHasValue(element.val().length > 0 || (element[0].validity || {}).badInput);
+			// }
 		}
 	}
 	angular.module('agFloatingLabel')
