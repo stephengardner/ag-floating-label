@@ -31,7 +31,8 @@ Less than 50KB for the `.js` and `.css` file, compared to Angular Material which
 
 ## Design.
 <img src="http://stephengardner.github.io/ag-floating-label/gh-pages-assets/ag-floating-label-1.png" width="400" />
-<img src="http://stephengardner.github.io/ag-floating-label/gh-pages-assets/ag-floating-label-2.png" width="400" />
+<br/>
+<img src="http://stephengardner.github.io/ag-floating-label/gh-pages-assets/ag-floating-label-3.png" width="400" />
 
 ## Flexibility.
 We've included the `.scss` files, which make changing the format and colors a breeze.
