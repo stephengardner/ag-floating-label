@@ -31,10 +31,7 @@ $ag-floating-label-show-errors-spacer : true;
 
 // input padding
 $ag-floating-label-input-default-padding-top : 3px;
-.form-group {
-	margin:0!important;
-	margin-bottom:0!important;
-}
+
 [ag-floating-label], .ag-floating-label, ag-floating-label {
 	// This makes so the errors spacer is a block level object and pushed things down.
 	// This is required on this element

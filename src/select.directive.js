@@ -77,7 +77,11 @@
 				}
 			})
 
+			var label = containerCtrl.element[0].querySelector('label');
 			wrapInput(scope, element);
+			if(label) {
+				scope.inputWrapper.prepend(label);
+			}
 
 			var errorsSpacer = angular.element('<div class="ag-errors-spacer">');
 			var inputGroup = containerCtrl.element[0].querySelector('.ag-input-group, .input-group');

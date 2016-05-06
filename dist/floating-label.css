@@ -1,7 +1,3 @@
-.form-group {
-  margin: 0 !important;
-  margin-bottom: 0 !important; }
-
 [ag-floating-label]:after, .ag-floating-label:after, ag-floating-label:after {
   content: '';
   display: table;
