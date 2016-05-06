@@ -50,7 +50,7 @@ var divtag     = document.querySelector("div");
 		return { top: top, left: left };
 	}
 
-	function ContainerCtrl($scope, $element, $attrs, $animate) {
+	function ContainerCtrl($scope, $element, $attrs, $animate, $timeout, $agUtil) {
 		var self = this;
 		self.element = $element,
 			self.invalid = false,
@@ -66,9 +66,11 @@ var divtag     = document.querySelector("div");
 		self.setHasValue = function(hasValue) {
 			$element.toggleClass('ag-input-has-value', !!hasValue);
 		};
+
 		self.setHasPlaceholder = function(hasPlaceholder) {
 			$element.toggleClass('ag-input-has-placeholder', !!hasPlaceholder);
 		};
+
 		self.setFocused = function(isFocused) {
 			self.focused = isFocused;
 			$element.toggleClass('ag-input-focused', !!isFocused);
@@ -76,32 +78,38 @@ var divtag     = document.querySelector("div");
 				console.log("isFocused");
 				self.setHints(true);
 			}
-			else { 
+			else {
 				console.log("isNOTFocused");
 				self.setHints(false);
 			}
 		};
+
 		self.setInvalid = function(isInvalid) {
 			self.invalid = isInvalid;
 			if (isInvalid) {
 				$animate.addClass($element, 'ag-input-invalid');
 				self.setHints(false);
 			} else {
-				self.setHints(self.focused || self.hintsActive);
 				$animate.removeClass($element, 'ag-input-invalid');
+				self.setHints(self.focused || self.hintsActive);
 			}
 		};
+
 		self.setHints = function(isActive) {
 			self.hintsActive = isActive;
-			$element.toggleClass('ag-input-has-hints', !!isActive);
-			if (isActive && !self.invalid) {
-				console.log("setting HINTS ACTIVE");
-				$animate.addClass($element, 'ag-hints-active');
-			} else {
-				console.log("setting HINTS INACTIVE");
-				$animate.removeClass($element, 'ag-hints-active');
-			}
+			// hints require next tick
+			$agUtil.nextTick(function() {
+				$element.toggleClass('ag-input-has-hints', !!isActive);
+				if (isActive && !self.invalid) {
+					console.log("setting HINTS ACTIVE");
+					$animate.addClass($element, 'ag-hints-active');
+				} else {
+					console.log("setting HINTS INACTIVE");
+					$animate.removeClass($element, 'ag-hints-active');
+				}
+			});
 		};
+
 		self.setHasLabel = function(hasLabel) {
 			self.hasLabel = hasLabel;
 			$element.toggleClass('ag-input-has-label', !!hasLabel);

@@ -1,0 +1,58 @@
+/**
+ * Responsive mixin. The media breakpoints are as defined
+ * in the twitter bootstrap framework:
+ *
+ * - phone
+ * - tablet-portrait
+ * - tablet-landscape-desktop
+ * - large-desktop
+ *
+ * Additional parameters for tagetting retina and non-retina
+ * devices
+ *
+ * - retina
+ * - non-retina
+ *
+ * Moreover, a specific value in px can be passed which is
+ * used to generate a max-width media query.
+ */
+.navbar .navbar-header {
+  float: left; }
+
+.navbar .navbar-right {
+  float: right; }
+
+.jumbotron {
+  background-color: #FF3B00;
+  color: white;
+  padding: 8rem 0;
+  /* Landscape phones and down */ }
+  .jumbotron h2 {
+    margin-top: 4rem;
+    transition: all .6s;
+    font-size: 2em;
+    /* Landscape phones and down */ }
+    @media (max-width: 480px) {
+      .jumbotron h2 {
+        font-size: 1.5em; } }
+  @media (max-width: 480px) {
+    .jumbotron h2 {
+      word-break: none;
+      font-size: 1.6em; } }
+
+.forms-container {
+  /* Landscape phones and down */ }
+  .forms-container .title {
+    color: #333;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #ddd; }
+
+.demos-footer {
+  text-align: center; }
+  .demos-footer h1 {
+    margin-bottom: 3rem; }
+  .demos-footer .h4 {
+    margin-top: 3rem; }
+
+body {
+  padding-bottom: 50px; }

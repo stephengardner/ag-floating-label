@@ -226,12 +226,16 @@
 	function ngMessageAnimation($animateCss) {
 		return {
 			enter: function(element, done) {
-				var messages = getMessagesElement(element);
+				// Available on Angular-material, but here, this seems to cause issues.  Perhaps
+				// because we're not explicitly setting a CSS animation for this.
+				// The reason we don't set that is because we don't just want margin -100px, we want an actual px
+				// calculation every time, it's more accurate.
+				// var messages = getMessagesElement(element);
 				// If we have the md-auto-hide class, the md-input-invalid animation will fire, so we can skip
-				if (messages.hasClass('ag-auto-hide')) {
-					done();
-					return;
-				}
+				// if (messages.hasClass('ag-auto-hide')) {
+				// 	done();
+				// 	return;
+				// }
 
 				return showMessage(element, $animateCss);
 			},
@@ -392,6 +396,7 @@
 	}
 
 	function hideHintMessages(element, $animateCss, $q) {
+		console.log("hideHintMessages()");
 		var animators = [], animator;
 		var messages = getHintsElement(element);
 
@@ -413,7 +418,7 @@
 		.animation('.ag-input-hints-animation', agHintsAnimation);
 })(window.angular);
 (function (angular) {
-	function agMessagesAutoPosition() {
+	function agMessagesAutoPosition($timeout) {
 		return {
 			restrict: 'EA',
 			link: postLink,
@@ -424,6 +429,7 @@
 
 		function postLink(scope, element, attrs, agFloatingLabel) {
 			if (!agFloatingLabel) return;
+			var inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
 			scope.$watch(function(){
 				return scope.$eval(attrs.agMessagesAutoPosition)
 			}, function(newValue, oldValue){
@@ -434,26 +440,34 @@
 					undoCenter();
 			});
 
+			scope.$watch(function() {
+				return getElementOffset(inputElement).left
+			}, function(oldValue, newValue) {
+				console.log("inputOffset changed from ", oldValue, " to: ", newValue);
+				if(oldValue != newValue && scope.$eval(attrs.agMessagesAutoPosition)) {
+					center();
+				}
+			})
+
 			var paddingLeftOld;
 			function undoCenter() {
 				element.css('padding-left', '0px' );
 			}
 			function center() {
 				console.log("DoCenter");
-				element.toggleClass('ag-messages-auto-position', true);
-				var inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea'),
-					inputOffset = getElementOffset(inputElement),
-					agFloatingLabelOffset = getElementOffset(agFloatingLabel.element[0]),
-					offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
-					offsetLeftStyle = offsetLeftDifference + 'px'
-					;
-				element.css('padding-left', offsetLeftStyle);
+					element.toggleClass('ag-messages-auto-position', true);
+						var inputOffset = getElementOffset(inputElement),
+						agFloatingLabelOffset = getElementOffset(agFloatingLabel.element[0]),
+						offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
+						offsetLeftStyle = offsetLeftDifference + 'px'
+						;
+					element.css('padding-left', offsetLeftStyle);
 			}
 		}
 	}
 
 	angular.module('agFloatingLabel')
-		.directive('agMessagesAutoPosition', agMessagesAutoPosition)
+		.directive('agMessagesAutoPosition', ['$timeout', agMessagesAutoPosition])
 })(window.angular);
 
 function getElementOffset(element)
@@ -795,7 +809,7 @@ var divtag     = document.querySelector("div");
 		return { top: top, left: left };
 	}
 
-	function ContainerCtrl($scope, $element, $attrs, $animate) {
+	function ContainerCtrl($scope, $element, $attrs, $animate, $timeout, $agUtil) {
 		var self = this;
 		self.element = $element,
 			self.invalid = false,
@@ -811,9 +825,11 @@ var divtag     = document.querySelector("div");
 		self.setHasValue = function(hasValue) {
 			$element.toggleClass('ag-input-has-value', !!hasValue);
 		};
+
 		self.setHasPlaceholder = function(hasPlaceholder) {
 			$element.toggleClass('ag-input-has-placeholder', !!hasPlaceholder);
 		};
+
 		self.setFocused = function(isFocused) {
 			self.focused = isFocused;
 			$element.toggleClass('ag-input-focused', !!isFocused);
@@ -821,32 +837,38 @@ var divtag     = document.querySelector("div");
 				console.log("isFocused");
 				self.setHints(true);
 			}
-			else { 
+			else {
 				console.log("isNOTFocused");
 				self.setHints(false);
 			}
 		};
+
 		self.setInvalid = function(isInvalid) {
 			self.invalid = isInvalid;
 			if (isInvalid) {
 				$animate.addClass($element, 'ag-input-invalid');
 				self.setHints(false);
 			} else {
-				self.setHints(self.focused || self.hintsActive);
 				$animate.removeClass($element, 'ag-input-invalid');
+				self.setHints(self.focused || self.hintsActive);
 			}
 		};
+
 		self.setHints = function(isActive) {
 			self.hintsActive = isActive;
-			$element.toggleClass('ag-input-has-hints', !!isActive);
-			if (isActive && !self.invalid) {
-				console.log("setting HINTS ACTIVE");
-				$animate.addClass($element, 'ag-hints-active');
-			} else {
-				console.log("setting HINTS INACTIVE");
-				$animate.removeClass($element, 'ag-hints-active');
-			}
+			// hints require next tick
+			$agUtil.nextTick(function() {
+				$element.toggleClass('ag-input-has-hints', !!isActive);
+				if (isActive && !self.invalid) {
+					console.log("setting HINTS ACTIVE");
+					$animate.addClass($element, 'ag-hints-active');
+				} else {
+					console.log("setting HINTS INACTIVE");
+					$animate.removeClass($element, 'ag-hints-active');
+				}
+			});
 		};
+
 		self.setHasLabel = function(hasLabel) {
 			self.hasLabel = hasLabel;
 			$element.toggleClass('ag-input-has-label', !!hasLabel);
@@ -944,7 +966,12 @@ var divtag     = document.querySelector("div");
 				containerCtrl.setTouched(ngModelCtrl.$touched);
 			})
 			// scope.$watch(isErrorGetter, containerCtrl.setInvalid);
-			scope.$watch(isErrorGetter, containerCtrl.setInvalid);
+			scope.$watch(isErrorGetter, function(value){
+				containerCtrl.setInvalid(value);
+				// $agUtil.nextTick(function(){
+				// 	containerCtrl.setInvalid(value);
+				// });
+			});
 
 			var label = containerCtrl.element[0].querySelector('label');
 			wrapInput(scope, element);
@@ -1101,8 +1128,8 @@ var divtag     = document.querySelector("div");
 	}
 	ngMessageDirective.$inject = ["$agUtil"];
 
-	// angular.module('agFloatingLabel')
-	// 	.directive('ngMessage', ngMessageDirective)
+	angular.module('agFloatingLabel')
+		.directive('ngMessage', ngMessageDirective)
 })(window.angular);
 (function (angular) {
 

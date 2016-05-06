@@ -16,17 +16,25 @@ var strip = require('gulp-strip-comments');
  */
 function scriptsTask(sources, output, dist)
 {
-    return function ()
-    {
-        return gulp
-            .src(sources)
-            .pipe(concat(output))
-	        //.pipe(strip()) this resulted in an error
-            .pipe(gulp.dest(dist));
-    };
+	return function ()
+	{
+		return gulp
+			.src(sources)
+			.pipe(concat(output))
+			//.pipe(strip()) this resulted in an error
+			.pipe(gulp.dest(dist));
+	};
 }
 
-function stylesSassExamplesTask(sources, output, dist) {
+function stylesSassTask(sources, output, dist) {
+	return gulp
+		.src(sources)
+		.pipe(concat(output))
+		.pipe(sass())
+		.pipe(autoprefixer('last 2 version', 'ie 9', 'ie 10', 'ie 11'))
+		.pipe(gulp.dest(dist));
+}
+function stylesSassExamplesBootstrapTask(sources, output, dist) {
 	return function() {
 		return gulp.src(sources)
 			.pipe(concat(output))
@@ -52,25 +60,23 @@ function copySassTask(sources, dist) {
  */
 function stylesTask(sources, output, dist)
 {
-    return function ()
-    {
-        return gulp
-            .src(sources)
-            .pipe(concat(output))
-            .pipe(sass())
-            .pipe(autoprefixer('last 2 version', 'ie 9', 'ie 10', 'ie 11'))
-            .pipe(gulp.dest(dist));
-    };
+	return function ()
+	{
+		return gulp
+			.src(sources)
+			.pipe(concat(output))
+			.pipe(sass())
+			.pipe(autoprefixer('last 2 version', 'ie 9', 'ie 10', 'ie 11'))
+			.pipe(gulp.dest(dist));
+	};
 }
 
 module.exports = {
-    scriptsTask: scriptsTask,
+	scriptsTask: scriptsTask,
 	stylesTask: stylesTask,
 	copySassTask: copySassTask,
-	stylesSassExamplesTask: stylesSassExamplesTask,
+	//stylesSassExamplesTask: stylesSassExamplesDefaultTask,
 	styles : {
-		sass : {
-			examples : stylesSassExamplesTask
-		}
+		sass : stylesSassTask
 	}
 };

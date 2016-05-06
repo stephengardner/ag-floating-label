@@ -6,43 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
     </style>
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="./examples.css"/>
 
     <script src="../bower_components/angular/angular.js"></script>
     <script src="../bower_components/angular-messages/angular-messages.js"></script>
     <script src="../bower_components/angular-animate/angular-animate.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <script src="../dist/floating-label.js"></script>
 </head>
 <body ng-cloak>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">-->
-            <!--<span class="sr-only">Toggle navigation</span>-->
-            <!--<span class="icon-bar"></span>-->
-            <!--<span class="icon-bar"></span>-->
-            <!--<span class="icon-bar"></span>-->
-            <!--</button>-->
             <a class="navbar-brand" href="#">ag-floating-label</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a href="https://github.com/stephengardner/ag-floating-label" target="_blank">
                     View on GitHub
-                        <span class="sr-only">
-                            (view on github)
-                        </span>
+                    <span class="sr-only">
+                        (view on github)
+                    </span>
                 </a>
             </li>
         </ul>
-
     </div>
 </nav>
 <div class="jumbotron">
     <div class="container">
         <h1>Floating Label Inputs for AngularJS</h1>
-        <h2>Brought to you via <code>&lt;ag&#8209;floating&#8209;label></code></h2>
+        <h2>Brought to you via <code><nobr>&lt;ag-floating-label></nobr></code></h2>
     </div>
 </div>
 <div class="container forms-container">
@@ -135,12 +130,12 @@
                     <form name="errorsForm">
                         <ag-floating-label>
                             <label>
-                                Name (With hint and error-checking)
+                                Name (with hint and error)
                             </label>
                             <input type="text" ng-model="errorsFormName" name="name" minlength="5"/>
                             <ag-hints>
                                 <ag-hint>
-                                    To show the error, enter a name less than 5 characters, then click outside of the input
+                                    To show the error, enter a name less than 5 characters
                                 </ag-hint>
                             </ag-hints>
                             <div ng-messages="errorsForm.name.$error">
@@ -149,7 +144,7 @@
                         </ag-floating-label>
                         <ag-floating-label>
                             <label>
-                                City *
+                                City (with error only) *
                             </label>
                             <input type="text" ng-model="errorsFormCity" name="city" required/>
                             <div ng-messages="errorsForm.city.$error">
@@ -195,21 +190,29 @@
                             <div class="col-xs-3 col-md-1">
                                 <ag-floating-label>
                                     <label>Age</label>
-                                    <input type="number" ng-model="bootstrapFormAge" name="age" min="1"/>
+                                    <input type="number" ng-model="bootstrapFormAge" name="age" min="18"/>
+                                    <ag-hints>
+                                        <ag-hint>
+                                            18+
+                                        </ag-hint>
+                                    </ag-hints>
+                                    <div ng-messages="bootstrapForm.age.$error">
+                                        <div ng-message="min">You must be 18 to continue</div>
+                                    </div>
                                 </ag-floating-label>
                             </div>
                             <div class="col-xs-4">
                                 <ag-floating-label>
-                                    <label>Gender</label>
+                                    <label>Gender *</label>
                                     <select ng-model="bootstrapFormGender" name="gender" required>
                                         <option value="DC">Male</option>
                                         <option value="DC">Female</option>
                                         <option value="DC">Neither</option>
                                         <option value="DC">Both</option>
                                     </select>
-                                    <!--<div ng-messages="bootstrapForm.gender.$error">-->
-                                        <!--<div ng-message="required">This field is required</div>-->
-                                    <!--</div>-->
+                                    <div ng-messages="bootstrapForm.gender.$error">
+                                        <div ng-message="required">Please select your gender</div>
+                                    </div>
                                 </ag-floating-label>
                             </div>
                         </div>
@@ -218,11 +221,86 @@
                                 <ag-floating-label>
                                     <label>Comments</label>
                                     <textarea rows="4" ag-no-autogrow></textarea>
-                                    <!--<ag-hints>-->
-                                        <!--<ag-hint>-->
-                                            <!--A great big textarea, which will maintain it's current size when multiple lines are added.-->
-                                        <!--</ag-hint>-->
-                                    <!--</ag-hints>-->
+                                    <ag-hints>
+                                        <ag-hint>
+                                            A great big textarea, which will maintain it's current size when multiple lines are added.
+                                        </ag-hint>
+                                    </ag-hints>
+                                </ag-floating-label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Icon support, hints and errors will adjust to fit
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form name="iconForm">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ag-floating-label>
+                                    <label>Name</label>
+                                    <div class="ag-input-group">
+                                        <div class="ag-input-group-addon">
+                                            <i class="material-icons">person</i>
+                                        </div>
+                                        <input type="text" required ng-model="iconFormName" name="name"/>
+                                    </div>
+                                    <ag-hints>
+                                        <ag-hint>
+                                            What should we call you?
+                                        </ag-hint>
+                                    </ag-hints>
+                                    <div ng-messages="iconForm.name.$error">
+                                        <div ng-message="required">Please select a name</div>
+                                    </div>
+                                </ag-floating-label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ag-floating-label>
+                                    <label>Phone</label>
+                                    <div class="ag-input-group">
+                                        <div class="ag-input-group-addon">
+                                            <i class="material-icons">phone</i>
+                                        </div>
+                                        <input type="phone" ng-model="iconFormPhone" name="phone"/>
+                                    </div>
+                                    <ag-hints>
+                                        <ag-hint>
+                                            How can we reach you?
+                                        </ag-hint>
+                                    </ag-hints>
+                                </ag-floating-label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ag-floating-label>
+                                    <label>Email</label>
+                                    <div class="ag-input-group">
+                                        <div class="ag-input-group-addon">
+                                            <i class="material-icons">email</i>
+                                        </div>
+                                        <input type="email" ng-model="iconsFormEmail" name="email"/>
+                                    </div>
+                                    <ag-hints>
+                                        <ag-hint>
+                                            Where should we direct the spam? :-)
+                                        </ag-hint>
+                                    </ag-hints>
+                                    <div ng-messages="iconForm.email.$error">
+                                        <div ng-message="email">Please enter a valid email</div>
+                                    </div>
                                 </ag-floating-label>
                             </div>
                         </div>
@@ -249,17 +327,11 @@
         </h1>
     </div>
 </div>
-
 <script>
     angular.module('demo', ['agFloatingLabel']);
     angular.module('demo').controller('DemoController', function ($timeout, $scope) {
-        $scope.errorsForm = {
-            city : '',
-            state : '',
-            name : ''
-        };
+        // add controller logic here
     });
 </script>
-
 </body>
 </html>

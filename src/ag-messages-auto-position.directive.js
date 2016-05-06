@@ -1,5 +1,5 @@
 (function (angular) {
-	function agMessagesAutoPosition() {
+	function agMessagesAutoPosition($timeout) {
 		return {
 			restrict: 'EA',
 			link: postLink,
@@ -10,6 +10,7 @@
 
 		function postLink(scope, element, attrs, agFloatingLabel) {
 			if (!agFloatingLabel) return;
+			var inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
 			scope.$watch(function(){
 				return scope.$eval(attrs.agMessagesAutoPosition)
 			}, function(newValue, oldValue){
@@ -20,26 +21,34 @@
 					undoCenter();
 			});
 
+			scope.$watch(function() {
+				return getElementOffset(inputElement).left
+			}, function(oldValue, newValue) {
+				console.log("inputOffset changed from ", oldValue, " to: ", newValue);
+				if(oldValue != newValue && scope.$eval(attrs.agMessagesAutoPosition)) {
+					center();
+				}
+			})
+
 			var paddingLeftOld;
 			function undoCenter() {
 				element.css('padding-left', '0px' );
 			}
 			function center() {
 				console.log("DoCenter");
-				element.toggleClass('ag-messages-auto-position', true);
-				var inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea'),
-					inputOffset = getElementOffset(inputElement),
-					agFloatingLabelOffset = getElementOffset(agFloatingLabel.element[0]),
-					offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
-					offsetLeftStyle = offsetLeftDifference + 'px'
-					;
-				element.css('padding-left', offsetLeftStyle);
+					element.toggleClass('ag-messages-auto-position', true);
+						var inputOffset = getElementOffset(inputElement),
+						agFloatingLabelOffset = getElementOffset(agFloatingLabel.element[0]),
+						offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
+						offsetLeftStyle = offsetLeftDifference + 'px'
+						;
+					element.css('padding-left', offsetLeftStyle);
 			}
 		}
 	}
 
 	angular.module('agFloatingLabel')
-		.directive('agMessagesAutoPosition', agMessagesAutoPosition)
+		.directive('agMessagesAutoPosition', ['$timeout', agMessagesAutoPosition])
 })(window.angular);
 
 function getElementOffset(element)

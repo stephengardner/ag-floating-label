@@ -92,12 +92,16 @@
 	function ngMessageAnimation($animateCss) {
 		return {
 			enter: function(element, done) {
-				var messages = getMessagesElement(element);
+				// Available on Angular-material, but here, this seems to cause issues.  Perhaps
+				// because we're not explicitly setting a CSS animation for this.
+				// The reason we don't set that is because we don't just want margin -100px, we want an actual px
+				// calculation every time, it's more accurate.
+				// var messages = getMessagesElement(element);
 				// If we have the md-auto-hide class, the md-input-invalid animation will fire, so we can skip
-				if (messages.hasClass('ag-auto-hide')) {
-					done();
-					return;
-				}
+				// if (messages.hasClass('ag-auto-hide')) {
+				// 	done();
+				// 	return;
+				// }
 
 				return showMessage(element, $animateCss);
 			},
@@ -258,6 +262,7 @@
 	}
 
 	function hideHintMessages(element, $animateCss, $q) {
+		console.log("hideHintMessages()");
 		var animators = [], animator;
 		var messages = getHintsElement(element);
 

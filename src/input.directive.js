@@ -55,7 +55,12 @@
 				containerCtrl.setTouched(ngModelCtrl.$touched);
 			})
 			// scope.$watch(isErrorGetter, containerCtrl.setInvalid);
-			scope.$watch(isErrorGetter, containerCtrl.setInvalid);
+			scope.$watch(isErrorGetter, function(value){
+				containerCtrl.setInvalid(value);
+				// $agUtil.nextTick(function(){
+				// 	containerCtrl.setInvalid(value);
+				// });
+			});
 
 			var label = containerCtrl.element[0].querySelector('label');
 			wrapInput(scope, element);

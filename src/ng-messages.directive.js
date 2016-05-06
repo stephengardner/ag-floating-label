@@ -107,6 +107,6 @@
 	}
 	ngMessageDirective.$inject = ["$agUtil"];
 
-	// angular.module('agFloatingLabel')
-	// 	.directive('ngMessage', ngMessageDirective)
+	angular.module('agFloatingLabel')
+		.directive('ngMessage', ngMessageDirective)
 })(window.angular);

@@ -15,9 +15,20 @@ var config = {
 	styles : {
 		sass : {
 			examples : {
-				sources : ['./examples/*.scss'],
-				output : 'examples.css',
-				dest : './examples/'
+				default : {
+					sources : [
+						'./examples/*.scss'
+					],
+					output : 'examples.css',
+					dest : './examples/'
+				},
+				bootstrap : {
+					sources : [
+						'./examples/bootstrap/*.scss'
+					],
+					output : 'bootstrap.css',
+					dest : './examples/bootstrap/'
+				}
 			}
 		}
 	},
@@ -126,11 +137,32 @@ gulp.task('watch', function() {
 	gulp.watch('examples/index.html', notifyLivereload);
 });
 
-gulp.task('styles:sass:examples', gulpBuild.styles.sass.examples(
-	config.styles.sass.examples.sources,
-	config.styles.sass.examples.output,
-	config.styles.sass.examples.dest)
-);
+// gulp.task('styles:sass:examples', function(){
+// 	gulpBuild.styles.sass(
+// 		config.styles.sass.examples.default.sources,
+// 		config.styles.sass.examples.default.output,
+// 		config.styles.sass.examples.default.dest
+// 	);
+// 	// gulpBuild.styles.sass(
+// 	// 	config.styles.sass.examples.bootstrap.sources,
+// 	// 	config.styles.sass.examples.bootstrap.output,
+// 	// 	config.styles.sass.examples.bootstrap.dest
+// 	// );
+// });
+
+gulp.task('styles:sass:examples', function(cb) {
+	gulpBuild.styles.sass(
+		config.styles.sass.examples.bootstrap.sources,
+		config.styles.sass.examples.bootstrap.output,
+		config.styles.sass.examples.bootstrap.dest
+	);
+	gulpBuild.styles.sass(
+			config.styles.sass.examples.default.sources,
+			config.styles.sass.examples.default.output,
+			config.styles.sass.examples.default.dest
+		);
+	cb();
+});
 
 gulp.task('build', [/*'test', */'styles', 'styles:sass:examples', 'copySass', 'scripts']);
 

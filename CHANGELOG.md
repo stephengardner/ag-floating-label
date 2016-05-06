@@ -1,3 +1,9 @@
+## 0.0.5
+* Improved icon support
+* Minor transition bug fixed
+* Documentation
+* Build process separated in examples dir
+
 ## 0.0.4
 * Updated examples page to show various types of inputs and work with Bootstrap
 * Github demo page

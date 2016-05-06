@@ -7,6 +7,9 @@
   display: table;
   clear: both; }
 
+[ag-floating-label] select.ag-input, .ag-floating-label select.ag-input, ag-floating-label select.ag-input {
+  padding: 3px; }
+
 [ag-floating-label] .ag-input, .ag-floating-label .ag-input, ag-floating-label .ag-input {
   padding: 2px; }
 
@@ -136,17 +139,43 @@
     width: 10px; }
   .ag-floating-label.ag-input-has-error .ag-floating-label-underline {
     background-color: red; }
+  .ag-floating-label .ag-input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate; }
+    .ag-floating-label .ag-input-group .ag-input-group-addon {
+      padding: 0em 0.9em 0em 0.1em;
+      font-size: 1em;
+      font-weight: 400;
+      line-height: 1;
+      color: #555;
+      text-align: center;
+      border-radius: 4px; }
+    .ag-floating-label .ag-input-group .ag-input-group-addon, .ag-floating-label .ag-input-group .ag-input-group-btn {
+      width: 1%;
+      white-space: nowrap;
+      vertical-align: middle; }
+    .ag-floating-label .ag-input-group .form-control, .ag-floating-label .ag-input-group .ag-input-group-addon, .ag-floating-label .ag-input-group .ag-input-group-btn {
+      display: table-cell; }
+    .ag-floating-label .ag-input-group .form-control {
+      position: relative;
+      z-index: 2;
+      float: left;
+      width: 100%;
+      margin-bottom: 0; }
   .ag-floating-label.ag-input-has-placeholder label, .ag-floating-label.ag-input-has-value label, .ag-floating-label.ag-input-focused label {
     -webkit-transform: translate3d(0em, -1.6em, 0) scale(0.75);
             transform: translate3d(0em, -1.6em, 0) scale(0.75); }
-  .ag-floating-label.ag-input-focused.ag-input-focused label {
+  .ag-floating-label.ag-input-focused label, .ag-floating-label.ag-input-focused .ag-input-group .ag-input-group-addon {
     color: blue; }
-  .ag-floating-label.ag-input-focused.ag-input-focused .ag-floating-label-underline {
+  .ag-floating-label.ag-input-focused .ag-floating-label-underline {
     left: 0;
     visibility: visible;
     width: 100%; }
   .ag-floating-label.ag-input-invalid [ng-message] {
     display: block; }
+  .ag-floating-label.ag-input-invalid .ag-input-group .ag-input-group-addon {
+    color: red; }
   .ag-floating-label.ag-input-invalid.ag-input-focused label {
     color: red; }
   .ag-floating-label.ag-input-invalid .ag-floating-label-underline {
@@ -167,36 +196,16 @@
     display: block; }
   .ag-floating-label:not(.ag-input-has-hints) .ag-hint {
     margin-top: -100%; }
-  .ag-floating-label ng-message, .ag-floating-label data-ng-message, .ag-floating-label x-ng-message,
-  .ag-floating-label [ng-message], .ag-floating-label [data-ng-message], .ag-floating-label [x-ng-message],
-  .ag-floating-label [ng-message-exp], .ag-floating-label [data-ng-message-exp], .ag-floating-label [x-ng-message-exp],
-  .ag-floating-label .md-char-counter, .ag-floating-label .ag-hints, .ag-floating-label .ag-hint {
+  .ag-floating-label .ag-hints, .ag-floating-label .ag-hint {
     overflow: hidden;
     opacity: 1;
     margin-top: 0; }
+  .ag-floating-label ng-message, .ag-floating-label data-ng-message, .ag-floating-label x-ng-message,
+  .ag-floating-label [ng-message], .ag-floating-label [data-ng-message], .ag-floating-label [x-ng-message],
+  .ag-floating-label [ng-message-exp], .ag-floating-label [data-ng-message-exp], .ag-floating-label [x-ng-message-exp],
+  .ag-floating-label .md-char-counter {
+    overflow: hidden;
+    opacity: 0;
+    margin-top: 0; }
   .ag-floating-label:not(.ag-input-touched) [ng-message] {
     display: none; }
-  .ag-floating-label .ag-input-group {
-    position: relative;
-    display: table;
-    border-collapse: separate; }
-    .ag-floating-label .ag-input-group .ag-input-group-addon {
-      padding: 0.4em 0.9em 0.4em 0.1em;
-      font-size: 1em;
-      font-weight: 400;
-      line-height: 1;
-      color: #555;
-      text-align: center;
-      border-radius: 4px; }
-    .ag-floating-label .ag-input-group .ag-input-group-addon, .ag-floating-label .ag-input-group .ag-input-group-btn {
-      width: 1%;
-      white-space: nowrap;
-      vertical-align: middle; }
-    .ag-floating-label .ag-input-group .form-control, .ag-floating-label .ag-input-group .ag-input-group-addon, .ag-floating-label .ag-input-group .ag-input-group-btn {
-      display: table-cell; }
-    .ag-floating-label .ag-input-group .form-control {
-      position: relative;
-      z-index: 2;
-      float: left;
-      width: 100%;
-      margin-bottom: 0; }

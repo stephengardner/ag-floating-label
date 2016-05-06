@@ -23,7 +23,7 @@ $ag-floating-label-ng-message-padding-top-default : .2em;
 $ag-floating-label-ng-message-padding-bottom-default : .1em;
 
 // input group
-$ag-input-group-addon-default-padding : .4em .9em .4em .1em;
+$ag-input-group-addon-default-padding : 0em .9em 0em .1em;
 $ag-input-group-addon-default-font-size: 1em;
 
 // errors spacer
@@ -47,6 +47,10 @@ $ag-floating-label-input-default-padding-top : 3px;
 
 	//
 	//padding: $ag-floating-label-input-padding-size 2px;
+	select.ag-input {
+		// select requires 1 pixel extra to make it even
+		padding: 3px;
+	}
 	.ag-input {
 		padding: 2px;
 	}
@@ -224,6 +228,37 @@ $ag-floating-label-input-default-padding-top : 3px;
 		}
 	}
 
+
+	.ag-input-group {
+		position: relative;
+		display: table;
+		border-collapse: separate;
+		.ag-input-group-addon {
+			padding: $ag-input-group-addon-default-padding;
+			font-size: $ag-input-group-addon-default-font-size;
+			font-weight: 400;
+			line-height: 1;
+			color: #555;
+			text-align: center;
+			border-radius: 4px;
+		}
+		.ag-input-group-addon, .ag-input-group-btn {
+			width: 1%;
+			white-space: nowrap;
+			vertical-align: middle;
+		}
+		.form-control, .ag-input-group-addon, .ag-input-group-btn {
+			display: table-cell;
+		}
+		.form-control {
+			position: relative;
+			z-index: 2;
+			float: left;
+			width: 100%;
+			margin-bottom: 0;
+		}
+	}
+
 	&.ag-input-has-placeholder, &.ag-input-has-value, &.ag-input-focused {
 		label {
 			transform: translate3d(0em, $ag-floating-label-input-y-translate-ending-position, 0) scale($ag-floating-label-input-y-translate-ending-scale);
@@ -231,15 +266,13 @@ $ag-floating-label-input-default-padding-top : 3px;
 	}
 
 	&.ag-input-focused {
-		&.ag-input-focused {
-			label {
-				color: $ag-floating-label-color-primary;
-			}
-			.ag-floating-label-underline {
-				left: 0;
-				visibility: visible;
-				width: 100%;
-			}
+		label, .ag-input-group .ag-input-group-addon {
+			color: $ag-floating-label-color-primary;
+		}
+		.ag-floating-label-underline {
+			left: 0;
+			visibility: visible;
+			width: 100%;
 		}
 	}
 
@@ -249,6 +282,11 @@ $ag-floating-label-input-default-padding-top : 3px;
 		}
 		[ng-message] {
 			display: block;
+		}
+		.ag-input-group {
+			.ag-input-group-addon {
+				color: $ag-floating-label-color-error;
+			}
 		}
 		&.ag-input-focused {
 			label {
@@ -287,14 +325,19 @@ $ag-floating-label-input-default-padding-top : 3px;
 		[ag-hints], .ag-hints {
 		}
 	}
-
-	ng-message, data-ng-message, x-ng-message,
-	[ng-message], [data-ng-message], [x-ng-message],
-	[ng-message-exp], [data-ng-message-exp], [x-ng-message-exp],
-	.md-char-counter, .ag-hints, .ag-hint {
+	.ag-hints, .ag-hint {
 		overflow: hidden;
 		// Default state for messages is to be visible
 		opacity: 1;
+		margin-top: 0;
+	}
+	ng-message, data-ng-message, x-ng-message,
+	[ng-message], [data-ng-message], [x-ng-message],
+	[ng-message-exp], [data-ng-message-exp], [x-ng-message-exp],
+	.md-char-counter {
+		overflow: hidden;
+		// Default state for messages is to be visible
+		opacity: 0;
 		margin-top: 0;
 	}
 
@@ -306,36 +349,6 @@ $ag-floating-label-input-default-padding-top : 3px;
 	&:not(.ag-input-touched) {
 		[ng-message] {
 			display:none;
-		}
-	}
-
-	.ag-input-group {
-			position: relative;
-			display: table;
-			border-collapse: separate;
-		.ag-input-group-addon {
-			padding: $ag-input-group-addon-default-padding;
-			font-size: $ag-input-group-addon-default-font-size;
-			font-weight: 400;
-			line-height: 1;
-			color: #555;
-			text-align: center;
-			border-radius: 4px;
-		}
-		.ag-input-group-addon, .ag-input-group-btn {
-			width: 1%;
-			white-space: nowrap;
-			vertical-align: middle;
-		}
-		.form-control, .ag-input-group-addon, .ag-input-group-btn {
-			display: table-cell;
-		}
-		.form-control {
-			position: relative;
-			z-index: 2;
-			float: left;
-			width: 100%;
-			margin-bottom: 0;
 		}
 	}
 }
