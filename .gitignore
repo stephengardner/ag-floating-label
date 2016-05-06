@@ -14,7 +14,7 @@ lib
 node_modules
 npm-debug.log
 
-# gh-pages
+# UNCOMMENT on gh-pages
  gh-pages-assets
  bower_components
 
