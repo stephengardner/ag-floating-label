@@ -146,7 +146,7 @@
                             <label>
                                 City (with error only) *
                             </label>
-                            <input type="text" ng-model="errorsFormCity" name="city" required/>
+                            <input type="text" ng-model="errorsFormCity" name="city" ng-required="true"/>
                             <div ng-messages="errorsForm.city.$error">
                                 <div ng-message="required">This field is required</div>
                             </div>
