@@ -343,9 +343,9 @@ $ag-floating-label-input-default-padding-top : 3px;
 	// This makes sure an element has been touched first.
 	// Touched means that the element was focused and then blurred
 	// It doesn't just mean focused, as one might guess
-	&:not(.ag-input-touched) {
-		[ng-message] {
-			display:none;
-		}
-	}
+	//&:not(.ag-input-touched) {
+	//	[ng-message] {
+	//		display:none;
+	//	}
+	//}
 }

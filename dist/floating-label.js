@@ -146,16 +146,16 @@
 					done();
 				}
 			}
-			,
-			removeClass : function(element, className, done) {
-				console.log("RemoveClass");
-				var messages = getMessagesElement(element);
-				if (className == "ag-input-invalid" && messages.hasClass('ag-auto-hide')) {
-					hideInputMessages(element, $animateCss, $q).finally(done);
-				} else {
-					done();
-				}
-			}
+			// ,
+			// removeClass : function(element, className, done) {
+			// 	console.log("RemoveClass");
+			// 	var messages = getMessagesElement(element);
+			// 	if (className == "ag-input-invalid" && messages.hasClass('ag-auto-hide')) {
+			// 		hideInputMessages(element, $animateCss, $q).finally(done);
+			// 	} else {
+			// 		done();
+			// 	}
+			// }
 
 			// NOTE: We do not need the removeClass method, because the message ng-leave animation will fire
 		}
@@ -177,6 +177,7 @@
 			,
 			removeClass : function(element, className, done) {
 				console.log("HINTS RemoveClass");
+				// dont need this on hints
 				//var messages = getMessagesElement(element);
 				if (className == "ag-hints-active" /*&& messages.hasClass('ag-auto-hide')*/) {
 					hideHintMessages(element, $animateCss, $q).finally(done);
@@ -193,17 +194,14 @@
 	function ngMessagesAnimation($q, $animateCss) {
 		return {
 			enter: function(element, done) {
-				console.log("NgMessagesAnimation.enter()");
 				showInputMessages(element, $animateCss, $q).finally(done);
 			},
 
 			leave: function(element, done) {
-				console.log("NgMessagesAnimation.leave()");
 				hideInputMessages(element, $animateCss, $q).finally(done);
 			},
 
 			addClass: function(element, className, done) {
-				console.log("NgMessagesAnimation.addClass()");
 				if (className == "ng-hide") {
 					hideInputMessages(element, $animateCss, $q).finally(done);
 				} else {
@@ -212,7 +210,6 @@
 			},
 
 			removeClass: function(element, className, done) {
-				console.log("NgMessagesAnimation.removeClass()");
 				if (className == "ng-hide") {
 					showInputMessages(element, $animateCss, $q).finally(done);
 				} else {
@@ -232,10 +229,10 @@
 				// calculation every time, it's more accurate.
 				// var messages = getMessagesElement(element);
 				// If we have the md-auto-hide class, the md-input-invalid animation will fire, so we can skip
-				// if (messages.hasClass('ag-auto-hide')) {
-				// 	done();
-				// 	return;
-				// }
+				if (messages.hasClass('ag-auto-hide')) {
+					done();
+					return;
+				}
 
 				return showMessage(element, $animateCss);
 			},
@@ -328,14 +325,16 @@
 	}
 
 
+
 	function showMessage(element, $animateCss) {
 		var height = element[0].offsetHeight;
+
 		return $animateCss(element, {
 			event: 'enter',
 			structural: true,
 			from: {"opacity": 0, "margin-top": -height + "px"},
 			to: {"opacity": 1, "margin-top": "0"},
-			duration: .3
+			duration: 0.3
 		});
 	}
 
@@ -352,9 +351,9 @@
 		return $animateCss(element, {
 			event: 'leave',
 			structural: true,
-			from: {"opacity": 1, "margin-top": 0},
+			from: {"opacity": 1, "margin-top": '1px'},
 			to: {"opacity": 0, "margin-top": -height + "px"},
-			duration: .3
+			duration: 0.3
 		});
 	}
 
@@ -370,13 +369,13 @@
 
 		return angular.element(input[0].querySelector(selector));
 	}
+	
 	function getHintsElement(element) {
 		var input = getInputElement(element);
 		var selector = 'ag-hints';
 
 		return angular.element(input[0].querySelector(selector));
 	}
-
 
 	function showHintMessages(element, $animateCss, $q) {
 		console.log("showHintMessages()");
@@ -933,45 +932,21 @@ var divtag     = document.querySelector("div");
 		}
 
 		function postLink(scope, element, attr, ctrls){
+
 			var containerCtrl = ctrls[0];
 			var hasNgModel = !!ctrls[1];
-			var ngModelCtrl = ctrls[1];
+			var ngModelCtrl = ctrls[1] || $agUtil.fakeNgModel();
 			var isReadonly = angular.isDefined(attr.readonly);
+
 			if (!containerCtrl) return;
-			if (containerCtrl.input) {
+
+			if (attr.type === 'hidden') {
+				element.attr('aria-hidden', 'true');
+				return;
+			} else if (containerCtrl.input) {
 				throw new Error("<md-input-container> can only have *one* <input>, <textarea> or <md-select> child element!");
 			}
-
-			// var isErrorGetter = containerCtrl.isErrorGetter || function() {
-			// 		console.log("Returning ", ngModelCtrl.$invalid + " && " + ngModelCtrl.$touched);
-			// 		return ngModelCtrl.$invalid && (ngModelCtrl.$touched || isParentFormSubmitted());
-			// 	};
-			console.log("label is:", label);
-			var isParentFormSubmitted = function () {
-				var parent = false;//$mdUtil.getClosest(element, 'form');
-				var form = parent ? angular.element(parent).controller('form') : null;
-
-				return form ? form.$submitted : false;
-			};
-
-			var isErrorGetter = function() {
-				// added ngModelCtrl.$dirty
-				// $touched is only applied after exiting the input
-				return containerCtrl.isErrorGetter
-					|| (ngModelCtrl.$invalid && (ngModelCtrl.$touched/* || ngModelCtrl.$dirty*/));
-			}
-			scope.$watch(function(){
-				return ngModelCtrl.$touched
-			}, function(value) {
-				containerCtrl.setTouched(ngModelCtrl.$touched);
-			})
-			// scope.$watch(isErrorGetter, containerCtrl.setInvalid);
-			scope.$watch(isErrorGetter, function(value){
-				containerCtrl.setInvalid(value);
-				// $agUtil.nextTick(function(){
-				// 	containerCtrl.setInvalid(value);
-				// });
-			});
+			containerCtrl.input = element;
 
 			var label = containerCtrl.element[0].querySelector('label');
 			wrapInput(scope, element);
@@ -986,29 +961,63 @@ var divtag     = document.querySelector("div");
 			else {
 				scope.inputWrapper.after(errorsSpacer);
 			}
+			element.addClass('ag-input');
+			if (!element.attr('id')) {
+				//element.attr('id', 'input_' + $agUtil.nextUid());
+			}
+
+			// If the input doesn't have an ngModel, it may have a static value. For that case,
+			// we have to do one initial check to determine if the container should be in the
+			// "has a value" state.
+			if (!hasNgModel) {
+				inputCheckValue();
+			}
+
+			var isErrorGetter = containerCtrl.isErrorGetter || function() {
+					return ngModelCtrl.$invalid && (ngModelCtrl.$touched || isParentFormSubmitted());
+				};
+
+			var isParentFormSubmitted = function () {
+				var parent = $agUtil.getClosest(element, 'form');
+				var form = parent ? angular.element(parent).controller('form') : null;
+
+				return form ? form.$submitted : false;
+			};
+
+			//scope.$watch(ngModelCtrl.$touched, containerCtrl.setTouched);
+
+			scope.$watch(isErrorGetter, containerCtrl.setInvalid);
 
 			ngModelCtrl.$parsers.push(ngModelPipelineCheckValue);
 			ngModelCtrl.$formatters.push(ngModelPipelineCheckValue);
+
+			element.on('input', inputCheckValue);
+			if (!isReadonly) {
+				element
+					.on('focus', function (ev) {
+						$agUtil.nextTick(function () {
+							containerCtrl.setFocused(true);
+						});
+					})
+					.on('blur', function (ev) {
+						$agUtil.nextTick(function () {
+							containerCtrl.setFocused(false);
+							inputCheckValue();
+						});
+					});
+			}
+
+			scope.$on('$destroy', function() {
+				containerCtrl.setFocused(false);
+				containerCtrl.setHasValue(false);
+				containerCtrl.input = null;
+			});
 
 			function ngModelPipelineCheckValue(arg) {
 				containerCtrl.setHasValue(!ngModelCtrl.$isEmpty(arg));
 				return arg;
 			}
 
-			containerCtrl.input = element;
-			element.addClass('ag-input');
-			element
-				.on('focus', function(ev) {
-					$agUtil.nextTick(function() {
-						containerCtrl.setFocused(true);
-					});
-				})
-				.on('blur', function(ev) {
-					$agUtil.nextTick(function(){
-						containerCtrl.setFocused(false);
-						inputCheckValue();
-					});
-				});
 			function inputCheckValue() {
 				// An input's value counts if its length > 0,
 				// or if the input's validity state says it has bad input (eg string in a number input)
@@ -1044,7 +1053,7 @@ var divtag     = document.querySelector("div");
 			// If we are not a child of an input container, don't do anything
 			if (!inputContainer) return;
 			
-			// BEGIN DUPLICATE CODE
+			// BEGIN DUPLICATE AUTOPOSTITION CODE
 			// Duplicate from ag-hints, and ng-messages take this out and make as options on the container directive
 			// Then compile the children if they are changed
 			// Automatically center the ng-messaged when there is a 

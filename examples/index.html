@@ -132,7 +132,7 @@
                             <label>
                                 Name (with hint and error)
                             </label>
-                            <input type="text" ng-model="errorsFormName" name="name" minlength="5"/>
+                            <input type="text" ng-model="errorsFormName" name="name" ng-minlength="5"/>
                             <ag-hints>
                                 <ag-hint>
                                     To show the error, enter a name less than 5 characters
@@ -146,7 +146,10 @@
                             <label>
                                 City (with error only) *
                             </label>
-                            <input type="text" ng-model="errorsFormCity" name="city" ng-required="true"/>
+                            <input type="text"
+                                   ng-model="errorsFormCity"
+                                   name="city"
+                                   required="true"/>
                             <div ng-messages="errorsForm.city.$error">
                                 <div ng-message="required">This field is required</div>
                             </div>

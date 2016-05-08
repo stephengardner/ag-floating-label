@@ -12,16 +12,16 @@
 					done();
 				}
 			}
-			,
-			removeClass : function(element, className, done) {
-				console.log("RemoveClass");
-				var messages = getMessagesElement(element);
-				if (className == "ag-input-invalid" && messages.hasClass('ag-auto-hide')) {
-					hideInputMessages(element, $animateCss, $q).finally(done);
-				} else {
-					done();
-				}
-			}
+			// ,
+			// removeClass : function(element, className, done) {
+			// 	console.log("RemoveClass");
+			// 	var messages = getMessagesElement(element);
+			// 	if (className == "ag-input-invalid" && messages.hasClass('ag-auto-hide')) {
+			// 		hideInputMessages(element, $animateCss, $q).finally(done);
+			// 	} else {
+			// 		done();
+			// 	}
+			// }
 
 			// NOTE: We do not need the removeClass method, because the message ng-leave animation will fire
 		}
@@ -43,6 +43,7 @@
 			,
 			removeClass : function(element, className, done) {
 				console.log("HINTS RemoveClass");
+				// dont need this on hints
 				//var messages = getMessagesElement(element);
 				if (className == "ag-hints-active" /*&& messages.hasClass('ag-auto-hide')*/) {
 					hideHintMessages(element, $animateCss, $q).finally(done);
@@ -59,17 +60,14 @@
 	function ngMessagesAnimation($q, $animateCss) {
 		return {
 			enter: function(element, done) {
-				console.log("NgMessagesAnimation.enter()");
 				showInputMessages(element, $animateCss, $q).finally(done);
 			},
 
 			leave: function(element, done) {
-				console.log("NgMessagesAnimation.leave()");
 				hideInputMessages(element, $animateCss, $q).finally(done);
 			},
 
 			addClass: function(element, className, done) {
-				console.log("NgMessagesAnimation.addClass()");
 				if (className == "ng-hide") {
 					hideInputMessages(element, $animateCss, $q).finally(done);
 				} else {
@@ -78,7 +76,6 @@
 			},
 
 			removeClass: function(element, className, done) {
-				console.log("NgMessagesAnimation.removeClass()");
 				if (className == "ng-hide") {
 					showInputMessages(element, $animateCss, $q).finally(done);
 				} else {
@@ -98,10 +95,10 @@
 				// calculation every time, it's more accurate.
 				// var messages = getMessagesElement(element);
 				// If we have the md-auto-hide class, the md-input-invalid animation will fire, so we can skip
-				// if (messages.hasClass('ag-auto-hide')) {
-				// 	done();
-				// 	return;
-				// }
+				if (messages.hasClass('ag-auto-hide')) {
+					done();
+					return;
+				}
 
 				return showMessage(element, $animateCss);
 			},
@@ -194,14 +191,16 @@
 	}
 
 
+
 	function showMessage(element, $animateCss) {
 		var height = element[0].offsetHeight;
+
 		return $animateCss(element, {
 			event: 'enter',
 			structural: true,
 			from: {"opacity": 0, "margin-top": -height + "px"},
 			to: {"opacity": 1, "margin-top": "0"},
-			duration: .3
+			duration: 0.3
 		});
 	}
 
@@ -218,9 +217,9 @@
 		return $animateCss(element, {
 			event: 'leave',
 			structural: true,
-			from: {"opacity": 1, "margin-top": 0},
+			from: {"opacity": 1, "margin-top": '1px'},
 			to: {"opacity": 0, "margin-top": -height + "px"},
-			duration: .3
+			duration: 0.3
 		});
 	}
 
@@ -236,13 +235,13 @@
 
 		return angular.element(input[0].querySelector(selector));
 	}
+	
 	function getHintsElement(element) {
 		var input = getInputElement(element);
 		var selector = 'ag-hints';
 
 		return angular.element(input[0].querySelector(selector));
 	}
-
 
 	function showHintMessages(element, $animateCss, $q) {
 		console.log("showHintMessages()");

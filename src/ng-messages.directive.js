@@ -23,7 +23,7 @@
 			// If we are not a child of an input container, don't do anything
 			if (!inputContainer) return;
 			
-			// BEGIN DUPLICATE CODE
+			// BEGIN DUPLICATE AUTOPOSTITION CODE
 			// Duplicate from ag-hints, and ng-messages take this out and make as options on the container directive
 			// Then compile the children if they are changed
 			// Automatically center the ng-messaged when there is a 

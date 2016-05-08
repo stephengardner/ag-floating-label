@@ -203,3 +203,9 @@
     overflow: hidden;
     opacity: 0;
     margin-top: 0; }
+  .ag-floating-label:not(.ag-input-invalid) .ag-auto-hide .ag-input-message-animation {
+    opacity: 0;
+    margin-top: -100px; }
+  .ag-floating-label .ag-auto-hide .ag-input-message-animation:not(.ng-animate) {
+    opacity: 0;
+    margin-top: -100px; }
