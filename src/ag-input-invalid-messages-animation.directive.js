@@ -93,7 +93,7 @@
 				// because we're not explicitly setting a CSS animation for this.
 				// The reason we don't set that is because we don't just want margin -100px, we want an actual px
 				// calculation every time, it's more accurate.
-				// var messages = getMessagesElement(element);
+				var messages = getMessagesElement(element);
 				// If we have the md-auto-hide class, the md-input-invalid animation will fire, so we can skip
 				if (messages.hasClass('ag-auto-hide')) {
 					done();
