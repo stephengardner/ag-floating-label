@@ -174,6 +174,12 @@ $ag-floating-label-input-default-padding-top : 3px;
 		$ag-floating-label-ng-message-padding-bottom-default 0;
 	}
 
+	ng-message, [ng-message] {
+		margin-top:0px;
+		opacity : 1;
+		position:relative;
+	}
+
 	input,select {
 		&:focus {
 			outline:0;
@@ -323,20 +329,20 @@ $ag-floating-label-input-default-padding-top : 3px;
 		}
 	}
 	.ag-hints, .ag-hint {
-		overflow: hidden;
+		//overflow: hidden;
 		// Default state for messages is to be visible
 		opacity: 1;
 		margin-top: 0;
 	}
-	ng-message, data-ng-message, x-ng-message,
-	[ng-message], [data-ng-message], [x-ng-message],
-	[ng-message-exp], [data-ng-message-exp], [x-ng-message-exp],
-	.md-char-counter {
-		overflow: hidden;
-		// Default state for messages is to be visible
-		opacity: 0;
-		margin-top: 0;
-	}
+	//ng-message, data-ng-message, x-ng-message,
+	//[ng-message], [data-ng-message], [x-ng-message],
+	//[ng-message-exp], [data-ng-message-exp], [x-ng-message-exp],
+	//.md-char-counter {
+	//	overflow: hidden;
+	//	// Default state for messages is to be visible
+	//	//opacity: 1;
+	//	//margin-top: 0;
+	//}
 
 	// AG- Workaround for errors such as when adding a minlength error on an input, since these errors automatically pop
 	// up, we don't want them to auto-pop up.
@@ -356,14 +362,14 @@ $ag-floating-label-input-default-padding-top : 3px;
 			}
 		}
 	}
-
+	//
 	// Note: This is a workaround to fix an ng-enter flicker bug
-	.ag-auto-hide {
-		.ag-input-message-animation {
-			&:not(.ng-animate) {
-				opacity: 0;
-				margin-top: -100px;
-			}
-		}
-	}
+	//.ag-auto-hide {
+	//	.ag-input-message-animation {
+	//		&:not(.ng-animate) {
+	//			opacity: 0;
+	//			margin-top: -100px;
+	//		}
+	//	}
+	//}
 }

@@ -29,9 +29,6 @@
 			var isReadonly = angular.isDefined(attr.readonly);
 			if (!containerCtrl)	return;
 			if(!ngModelCtrl) {
-				if(console && console.warn) {
-					console.warn('A select directive has been created without an ngModel.  This is likely not intentional');
-				}
 				return;
 			}
 			if (containerCtrl.input) {

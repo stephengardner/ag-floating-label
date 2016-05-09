@@ -74,12 +74,10 @@ var divtag     = document.querySelector("div");
 		self.setFocused = function(isFocused) {
 			self.focused = isFocused;
 			$element.toggleClass('ag-input-focused', !!isFocused);
-			if(isFocused) {
-				console.log("isFocused");
+			if(isFocused && !self.invalid && ! self.hintsActive) {
 				self.setHints(true);
 			}
 			else {
-				console.log("isNOTFocused");
 				self.setHints(false);
 			}
 		};
@@ -97,17 +95,12 @@ var divtag     = document.querySelector("div");
 
 		self.setHints = function(isActive) {
 			self.hintsActive = isActive;
-			// hints require next tick
-			$agUtil.nextTick(function() {
-				$element.toggleClass('ag-input-has-hints', !!isActive);
-				if (isActive && !self.invalid) {
-					console.log("setting HINTS ACTIVE");
-					$animate.addClass($element, 'ag-hints-active');
-				} else {
-					console.log("setting HINTS INACTIVE");
-					$animate.removeClass($element, 'ag-hints-active');
-				}
-			});
+			$element.toggleClass('ag-input-has-hints', !!isActive);
+			if (isActive && !self.invalid) {
+				$animate.addClass($element, 'ag-hints-active');
+			} else {
+				$animate.removeClass($element, 'ag-hints-active');
+			}
 		};
 
 		self.setHasLabel = function(hasLabel) {
@@ -120,7 +113,6 @@ var divtag     = document.querySelector("div");
 			$element.toggleClass('ag-input-touched', !!isTouched);
 		};
 
-		console.log("OFFSET:", getElementOffset($element[0]));
 		self.offsetLeft = getElementOffset(self.element[0]);
 	}
 

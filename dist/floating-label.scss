@@ -328,6 +328,7 @@ $ag-floating-label-input-default-padding-top : 3px;
 		opacity: 1;
 		margin-top: 0;
 	}
+
 	ng-message, data-ng-message, x-ng-message,
 	[ng-message], [data-ng-message], [x-ng-message],
 	[ng-message-exp], [data-ng-message-exp], [x-ng-message-exp],
@@ -335,9 +336,8 @@ $ag-floating-label-input-default-padding-top : 3px;
 		overflow: hidden;
 		// Default state for messages is to be visible
 		opacity: 0;
-		margin-top: 0;
+		margin-top: -100px;
 	}
-
 	// AG- Workaround for errors such as when adding a minlength error on an input, since these errors automatically pop
 	// up, we don't want them to auto-pop up.
 	// This makes sure an element has been touched first.
@@ -348,21 +348,21 @@ $ag-floating-label-input-default-padding-top : 3px;
 	//		display:none;
 	//	}
 	//}
-	&:not(.ag-input-invalid) {
-		.ag-auto-hide {
-			.ag-input-message-animation {
-				opacity: 0;
-				margin-top: -100px;
-			}
-		}
-	}
-
+	//&:not(.ag-input-invalid) {
+	//	.ag-auto-hide {
+	//		.ag-input-message-animation {
+	//			opacity: 0;
+	//			margin-top: -100px;
+	//		}
+	//	}
+	//}
+	//
 	// Note: This is a workaround to fix an ng-enter flicker bug
 	.ag-auto-hide {
 		.ag-input-message-animation {
 			&:not(.ng-animate) {
 				opacity: 0;
-				margin-top: -100px;
+				//margin-top: -100px;
 			}
 		}
 	}

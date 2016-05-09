@@ -98,6 +98,11 @@
   color: red;
   padding: 0.2em 0 0.1em 0; }
 
+[ag-floating-label] ng-message, [ag-floating-label] [ng-message], .ag-floating-label ng-message, .ag-floating-label [ng-message], ag-floating-label ng-message, ag-floating-label [ng-message] {
+  margin-top: 0px;
+  opacity: 1;
+  position: relative; }
+
 [ag-floating-label] input, [ag-floating-label] select, .ag-floating-label input, .ag-floating-label select, ag-floating-label input, ag-floating-label select {
   position: relative;
   border: none;
@@ -193,19 +198,8 @@
   .ag-floating-label:not(.ag-input-has-hints) .ag-hint {
     margin-top: -100%; }
   .ag-floating-label .ag-hints, .ag-floating-label .ag-hint {
-    overflow: hidden;
     opacity: 1;
     margin-top: 0; }
-  .ag-floating-label ng-message, .ag-floating-label data-ng-message, .ag-floating-label x-ng-message,
-  .ag-floating-label [ng-message], .ag-floating-label [data-ng-message], .ag-floating-label [x-ng-message],
-  .ag-floating-label [ng-message-exp], .ag-floating-label [data-ng-message-exp], .ag-floating-label [x-ng-message-exp],
-  .ag-floating-label .md-char-counter {
-    overflow: hidden;
-    opacity: 0;
-    margin-top: 0; }
   .ag-floating-label:not(.ag-input-invalid) .ag-auto-hide .ag-input-message-animation {
-    opacity: 0;
-    margin-top: -100px; }
-  .ag-floating-label .ag-auto-hide .ag-input-message-animation:not(.ng-animate) {
     opacity: 0;
     margin-top: -100px; }
