@@ -879,6 +879,15 @@ var divtag     = document.querySelector("div");
 
 	function postLink(scope, element, attr) {
 		if (element.find('ag-icon').length) element.addClass('ag-has-icon');
+		// Removed Transclusion from the parent directive to avoid $compile errors when ag-hints are re-compiled
+		// Could alternately, potentially find a way to not re-compile ag-hints.
+		// Wrap the content in an ag-floating-label-content-wrapper, this will produce clearfixes on the
+		// inner elements, as well as add margins using this class.  The margins could not be applied
+		// to the parent class directive AND have clearfixes, so we had to separate the two.
+		// template : '<div class="ag-floating-label-content-wrapper"></div>',
+		var wrapper = angular.element('<div class="ag-floating-label-content-wrapper"></div>');
+		wrapper.append(element.children());
+		element.append(wrapper);
 	}
 	/**
 	 * Return the definition for this directive
@@ -889,11 +898,6 @@ var divtag     = document.querySelector("div");
 			restrict: 'E',
 			scope: true,
 			link: postLink,
-			transclude : true,
-			// Wrap the content in an ag-floating-label-content-wrapper, this will produce clearfixes on the
-			// inner elements, as well as add margins using this class.  The margins could not be applied
-			// to the parent class directive AND have clearfixes, so we had to separate the two.
-			template : '<div class="ag-floating-label-content-wrapper"><ng-transclude></ng-transclude></div>',
 			controller: ContainerCtrl
 		};
 	}
