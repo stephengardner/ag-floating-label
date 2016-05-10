@@ -30,7 +30,6 @@
 				}
 			})
 
-			var paddingLeftOld;
 			function undoCenter() {
 				element.css('padding-left', '0px' );
 			}

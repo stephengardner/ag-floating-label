@@ -6,6 +6,67 @@
 	});
 })(window.angular);
 (function (angular) {
+	function agMessagesAutoPosition($timeout) {
+		return {
+			restrict: 'EA',
+			link: postLink,
+			// This is optional because we don't want target *all* ngMessage instances, just those inside of
+			// mdInputContainer.
+			require: '^^?agFloatingLabel'
+		};
+
+		function postLink(scope, element, attrs, agFloatingLabel) {
+			if (!agFloatingLabel) return;
+			var inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
+			scope.$watch(function(){
+				return scope.$eval(attrs.agMessagesAutoPosition)
+			}, function(newValue, oldValue){
+				console.log('____agMessagedAutoPosition changing from : ', oldValue + ' to: ', newValue, " and element: ", element);
+				if(newValue)
+					center();
+				else
+					undoCenter();
+			});
+
+			scope.$watch(function() {
+				return getElementOffset(inputElement).left
+			}, function(oldValue, newValue) {
+				console.log("inputOffset changed from ", oldValue, " to: ", newValue);
+				if(oldValue != newValue && scope.$eval(attrs.agMessagesAutoPosition)) {
+					center();
+				}
+			})
+
+			function undoCenter() {
+				element.css('padding-left', '0px' );
+			}
+			function center() {
+				console.log("DoCenter");
+					element.toggleClass('ag-messages-auto-position', true);
+						var inputOffset = getElementOffset(inputElement),
+						agFloatingLabelOffset = getElementOffset(agFloatingLabel.element[0]),
+						offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
+						offsetLeftStyle = offsetLeftDifference + 'px'
+						;
+					element.css('padding-left', offsetLeftStyle);
+			}
+		}
+	}
+
+	angular.module('agFloatingLabel')
+		.directive('agMessagesAutoPosition', ['$timeout', agMessagesAutoPosition])
+})(window.angular);
+
+function getElementOffset(element)
+{
+	var de = document.documentElement;
+	var box = element.getBoundingClientRect();
+	var top = box.top + window.pageYOffset - de.clientTop;
+	var left = box.left + window.pageXOffset - de.clientLeft;
+	return { top: top, left: left };
+}
+
+(function (angular) {
 	var visibilityDirectives = ['ngIf', 'ngShow', 'ngHide', 'ngSwitchWhen', 'ngSwitchDefault'];
 
 	function addDefaultsToObject(object, defaults) {
@@ -21,7 +82,6 @@
 			// scope : {
 			// 	options : '=?' // make it optional
 			// },
-			priority : 1,
 			require: '^^?agFloatingLabel',
 			compile : compile
 		};
@@ -31,42 +91,29 @@
 			return {
 				post : function postLink(scope, element, attrs, agFloatingLabel) {
 					// BEGIN DUPLICATE CODE
-					// Duplicate from ag-hints, and ng-messages take this out and make as options on the
-					// container directive
-					// Then compile the children if they are changed
-					// Automatically center the ng-messaged when there is a
-					var DEFAULTS = {
-						autoPosition : true
-					};
-					var options = scope.$eval(attrs.options) || {};
-					addDefaultsToObject(options , DEFAULTS);
+					if (!agFloatingLabel) return;
+					var inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
 
-					scope.compileAutoPosition = function() {
-						console.log("--> compileAutoPosition | MESSAGES | do not run twice in succession");
-						element.attr('ag-messages-auto-position', options.autoPosition);
-						$compile(element)(scope);
-					};
+					scope.$watch(function() {
+						return getElementOffset(inputElement).left
+					}, function(oldValue, newValue) {
+						if(oldValue != newValue) {
+							center();
+						}
+					})
 
-					// When re-compiling, the listener will be created twice, unless we perform this check.
-					if(!scope.listener) {
-						watchOptionsChanges();
+					// Deprecated, will re-allow for this in the future based on Options
+					function undoCenter() {
+						element.css('padding-left', '0px' );
 					}
-
-					if(options.autoPosition && !attrs.agMessagesAutoPosition){
-						scope.compileAutoPosition();
-					}
-
-					function watchOptionsChanges() {
-						scope.listener = scope.$watch(function(){
-							return scope.$eval(attrs.options)
-						}, function(newValue, oldValue) {
-							options = newValue;
-							if(angular.equals(newValue, oldValue))
-								return; // skip
-							if(newValue.autoPosition != oldValue.autoPosition) {
-								scope.compileAutoPosition();
-							}
-						}, true);
+					function center() {
+						element.toggleClass('ag-messages-auto-position', true);
+						var inputOffset = getElementOffset(inputElement),
+							agFloatingLabelOffset = getElementOffset(agFloatingLabel.element[0]),
+							offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
+							offsetLeftStyle = offsetLeftDifference + 'px'
+							;
+						element.css('padding-left', offsetLeftStyle);
 					}
 					// END DUPLICATE CODE
 				}
@@ -419,68 +466,6 @@
 		.animation('.ag-input-message-animation', ngMessageAnimation)
 		.animation('.ag-input-hints-animation', agHintsAnimation);
 })(window.angular);
-(function (angular) {
-	function agMessagesAutoPosition($timeout) {
-		return {
-			restrict: 'EA',
-			link: postLink,
-			// This is optional because we don't want target *all* ngMessage instances, just those inside of
-			// mdInputContainer.
-			require: '^^?agFloatingLabel'
-		};
-
-		function postLink(scope, element, attrs, agFloatingLabel) {
-			if (!agFloatingLabel) return;
-			var inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
-			scope.$watch(function(){
-				return scope.$eval(attrs.agMessagesAutoPosition)
-			}, function(newValue, oldValue){
-				console.log('____agMessagedAutoPosition changing from : ', oldValue + ' to: ', newValue, " and element: ", element);
-				if(newValue)
-					center();
-				else
-					undoCenter();
-			});
-
-			scope.$watch(function() {
-				return getElementOffset(inputElement).left
-			}, function(oldValue, newValue) {
-				console.log("inputOffset changed from ", oldValue, " to: ", newValue);
-				if(oldValue != newValue && scope.$eval(attrs.agMessagesAutoPosition)) {
-					center();
-				}
-			})
-
-			var paddingLeftOld;
-			function undoCenter() {
-				element.css('padding-left', '0px' );
-			}
-			function center() {
-				console.log("DoCenter");
-					element.toggleClass('ag-messages-auto-position', true);
-						var inputOffset = getElementOffset(inputElement),
-						agFloatingLabelOffset = getElementOffset(agFloatingLabel.element[0]),
-						offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
-						offsetLeftStyle = offsetLeftDifference + 'px'
-						;
-					element.css('padding-left', offsetLeftStyle);
-			}
-		}
-	}
-
-	angular.module('agFloatingLabel')
-		.directive('agMessagesAutoPosition', ['$timeout', agMessagesAutoPosition])
-})(window.angular);
-
-function getElementOffset(element)
-{
-	var de = document.documentElement;
-	var box = element.getBoundingClientRect();
-	var top = box.top + window.pageYOffset - de.clientTop;
-	var left = box.left + window.pageXOffset - de.clientLeft;
-	return { top: top, left: left };
-}
-
 (function() {
 	angular
 		.module('agFloatingLabel')
@@ -1051,45 +1036,33 @@ var divtag     = document.querySelector("div");
 		function postLink(scope, element, attrs, inputContainer) {
 			// If we are not a child of an input container, don't do anything
 			if (!inputContainer) return;
-			
-			// BEGIN DUPLICATE AUTOPOSTITION CODE
-			// Duplicate from ag-hints, and ng-messages take this out and make as options on the container directive
-			// Then compile the children if they are changed
-			// Automatically center the ng-messaged when there is a 
-			var DEFAULTS = {
-				autoPosition : true
-			};
-			var options = scope.$eval(attrs.options) || {};
-			addDefaultsToObject(options , DEFAULTS);
 
-			scope.compileAutoPosition = function() {
-				console.log("--> compileAutoPosition | MESSAGES | do not run twice in succession");
-				element.attr('ag-messages-auto-position', options.autoPosition);
-				$compile(element)(scope);
-			};
+			// BEGIN DUPLICATE CODE
+			var inputElement = inputContainer.element[0].querySelector('input, select, textarea');
 
-			// When re-compiling, the listener will be created twice, unless we perform this check.
-			if(!scope.listener) {
-				watchOptionsChanges();
+			scope.$watch(function() {
+				return getElementOffset(inputElement).left
+			}, function(oldValue, newValue) {
+				if(oldValue != newValue) {
+					center();
+				}
+			})
+
+			// Deprecated, will re-allow for this in the future based on Options
+			function undoCenter() {
+				element.css('padding-left', '0px' );
 			}
-
-			if(options.autoPosition && !attrs.agMessagesAutoPosition){
-				scope.compileAutoPosition();
+			function center() {
+				element.toggleClass('ag-messages-auto-position', true);
+				var inputOffset = getElementOffset(inputElement),
+					agFloatingLabelOffset = getElementOffset(inputContainer.element[0]),
+					offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
+					offsetLeftStyle = offsetLeftDifference + 'px'
+					;
+				element.css('padding-left', offsetLeftStyle);
 			}
+			// END DUPLICATE CODE
 
-			function watchOptionsChanges() {
-				scope.listener = scope.$watch(function(){
-					return scope.$eval(attrs.options)
-				}, function(newValue, oldValue) {
-					options = newValue;
-					if(angular.equals(newValue, oldValue))
-						return; // skip
-					if(newValue.autoPosition != oldValue.autoPosition) {
-						scope.compileAutoPosition();
-					}
-				}, true);
-			}
-			// END DUPLICATE CODE 
 			
 			// Add our animation class
 			element.toggleClass('ag-input-messages-animation', true);

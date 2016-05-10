@@ -14,7 +14,6 @@
 			// scope : {
 			// 	options : '=?' // make it optional
 			// },
-			priority : 1,
 			require: '^^?agFloatingLabel',
 			compile : compile
 		};
@@ -24,42 +23,29 @@
 			return {
 				post : function postLink(scope, element, attrs, agFloatingLabel) {
 					// BEGIN DUPLICATE CODE
-					// Duplicate from ag-hints, and ng-messages take this out and make as options on the
-					// container directive
-					// Then compile the children if they are changed
-					// Automatically center the ng-messaged when there is a
-					var DEFAULTS = {
-						autoPosition : true
-					};
-					var options = scope.$eval(attrs.options) || {};
-					addDefaultsToObject(options , DEFAULTS);
+					if (!agFloatingLabel) return;
+					var inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
 
-					scope.compileAutoPosition = function() {
-						console.log("--> compileAutoPosition | MESSAGES | do not run twice in succession");
-						element.attr('ag-messages-auto-position', options.autoPosition);
-						$compile(element)(scope);
-					};
+					scope.$watch(function() {
+						return getElementOffset(inputElement).left
+					}, function(oldValue, newValue) {
+						if(oldValue != newValue) {
+							center();
+						}
+					})
 
-					// When re-compiling, the listener will be created twice, unless we perform this check.
-					if(!scope.listener) {
-						watchOptionsChanges();
+					// Deprecated, will re-allow for this in the future based on Options
+					function undoCenter() {
+						element.css('padding-left', '0px' );
 					}
-
-					if(options.autoPosition && !attrs.agMessagesAutoPosition){
-						scope.compileAutoPosition();
-					}
-
-					function watchOptionsChanges() {
-						scope.listener = scope.$watch(function(){
-							return scope.$eval(attrs.options)
-						}, function(newValue, oldValue) {
-							options = newValue;
-							if(angular.equals(newValue, oldValue))
-								return; // skip
-							if(newValue.autoPosition != oldValue.autoPosition) {
-								scope.compileAutoPosition();
-							}
-						}, true);
+					function center() {
+						element.toggleClass('ag-messages-auto-position', true);
+						var inputOffset = getElementOffset(inputElement),
+							agFloatingLabelOffset = getElementOffset(agFloatingLabel.element[0]),
+							offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
+							offsetLeftStyle = offsetLeftDifference + 'px'
+							;
+						element.css('padding-left', offsetLeftStyle);
 					}
 					// END DUPLICATE CODE
 				}

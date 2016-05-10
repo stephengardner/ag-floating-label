@@ -22,45 +22,33 @@
 		function postLink(scope, element, attrs, inputContainer) {
 			// If we are not a child of an input container, don't do anything
 			if (!inputContainer) return;
-			
-			// BEGIN DUPLICATE AUTOPOSTITION CODE
-			// Duplicate from ag-hints, and ng-messages take this out and make as options on the container directive
-			// Then compile the children if they are changed
-			// Automatically center the ng-messaged when there is a 
-			var DEFAULTS = {
-				autoPosition : true
-			};
-			var options = scope.$eval(attrs.options) || {};
-			addDefaultsToObject(options , DEFAULTS);
 
-			scope.compileAutoPosition = function() {
-				console.log("--> compileAutoPosition | MESSAGES | do not run twice in succession");
-				element.attr('ag-messages-auto-position', options.autoPosition);
-				$compile(element)(scope);
-			};
+			// BEGIN DUPLICATE CODE
+			var inputElement = inputContainer.element[0].querySelector('input, select, textarea');
 
-			// When re-compiling, the listener will be created twice, unless we perform this check.
-			if(!scope.listener) {
-				watchOptionsChanges();
+			scope.$watch(function() {
+				return getElementOffset(inputElement).left
+			}, function(oldValue, newValue) {
+				if(oldValue != newValue) {
+					center();
+				}
+			})
+
+			// Deprecated, will re-allow for this in the future based on Options
+			function undoCenter() {
+				element.css('padding-left', '0px' );
 			}
-
-			if(options.autoPosition && !attrs.agMessagesAutoPosition){
-				scope.compileAutoPosition();
+			function center() {
+				element.toggleClass('ag-messages-auto-position', true);
+				var inputOffset = getElementOffset(inputElement),
+					agFloatingLabelOffset = getElementOffset(inputContainer.element[0]),
+					offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
+					offsetLeftStyle = offsetLeftDifference + 'px'
+					;
+				element.css('padding-left', offsetLeftStyle);
 			}
+			// END DUPLICATE CODE
 
-			function watchOptionsChanges() {
-				scope.listener = scope.$watch(function(){
-					return scope.$eval(attrs.options)
-				}, function(newValue, oldValue) {
-					options = newValue;
-					if(angular.equals(newValue, oldValue))
-						return; // skip
-					if(newValue.autoPosition != oldValue.autoPosition) {
-						scope.compileAutoPosition();
-					}
-				}, true);
-			}
-			// END DUPLICATE CODE 
 			
 			// Add our animation class
 			element.toggleClass('ag-input-messages-animation', true);
