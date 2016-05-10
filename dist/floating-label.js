@@ -924,6 +924,8 @@ var divtag     = document.querySelector("div");
 
 			if (!containerCtrl) return;
 
+			if (element.find('ag-icon').length) element.addClass('ag-has-icon');
+
 			if (attr.type === 'hidden') {
 				element.attr('aria-hidden', 'true');
 				return;

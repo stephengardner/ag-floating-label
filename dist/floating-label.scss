@@ -32,6 +32,8 @@ $ag-floating-label-show-errors-spacer : true;
 // input padding
 $ag-floating-label-input-default-padding-top : 3px;
 
+$icon-offset: 36px !default;
+
 [ag-floating-label], .ag-floating-label, ag-floating-label {
 	// This makes so the errors spacer is a block level object and pushed things down.
 	// This is required on this element
@@ -42,6 +44,15 @@ $ag-floating-label-input-default-padding-top : 3px;
 		clear: both;
 	}
 
+	&.md-has-icon {
+		padding:0 0 0 $icon-offset;
+		//@include rtl(padding-left, $icon-offset, 0);
+		//@include rtl(padding-right, 0, $icon-offset);
+		//> label {
+		//	@include rtl(left, $icon-offset, auto);
+		//	@include rtl(right, auto, $icon-offset);
+		//}
+	}
 	//
 	//padding: $ag-floating-label-input-padding-size 2px;
 	select.ag-input {

@@ -311,6 +311,21 @@
                                 </ag-floating-label>
                             </div>
                         </div>
+                        <ag-floating-label>
+                            <label>Email</label>
+                            <ag-icon>
+                                <i class="material-icons">email</i>
+                            </ag-icon>
+                            <input type="email" ng-model="iconsFormEmail" name="email"/>
+                            <ag-hints>
+                                <ag-hint>
+                                    Where should we direct the spam? :-)
+                                </ag-hint>
+                            </ag-hints>
+                            <div ng-messages="iconForm.email.$error">
+                                <div ng-message="email">Please enter a valid email</div>
+                            </div>
+                        </ag-floating-label>
                     </form>
                 </div>
             </div>
