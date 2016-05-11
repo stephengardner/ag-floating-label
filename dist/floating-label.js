@@ -7,6 +7,14 @@
 })(window.angular);
 (function (angular) {
 	var visibilityDirectives = ['ngIf', 'ngShow', 'ngHide', 'ngSwitchWhen', 'ngSwitchDefault'];
+	function getElementOffset(element)
+	{
+		var de = document.documentElement;
+		var box = element.getBoundingClientRect();
+		var top = box.top + window.pageYOffset - de.clientTop;
+		var left = box.left + window.pageXOffset - de.clientLeft;
+		return { top: top, left: left };
+	}
 	function agHintsDirective() {
 		return {
 			restrict: 'EA',
