@@ -19,17 +19,19 @@
 			require: '^^?agFloatingLabel'
 		};
 
-		function postLink(scope, element, attrs, inputContainer) {
+		function postLink(scope, element, attrs, agFloatingLabel) {
 			// If we are not a child of an input container, don't do anything
-			if (!inputContainer) return;
+			if (!agFloatingLabel) return;
 
 			// BEGIN DUPLICATE CODE
-			var inputElement = inputContainer.element[0].querySelector('input, select, textarea');
+			var containerElement = agFloatingLabel.element,
+				containerHasIcon = containerElement.find('ag-icon'),
+				inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
 
 			scope.$watch(function() {
 				return getElementOffset(inputElement).left
 			}, function(oldValue, newValue) {
-				if(oldValue != newValue) {
+				if(!containerHasIcon && oldValue != newValue) {
 					center();
 				}
 			})
@@ -41,7 +43,7 @@
 			function center() {
 				element.toggleClass('ag-messages-auto-position', true);
 				var inputOffset = getElementOffset(inputElement),
-					agFloatingLabelOffset = getElementOffset(inputContainer.element[0]),
+					agFloatingLabelOffset = getElementOffset(agFloatingLabel.element[0]),
 					offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
 					offsetLeftStyle = offsetLeftDifference + 'px'
 					;

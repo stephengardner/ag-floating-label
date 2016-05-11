@@ -44,7 +44,14 @@ $icon-offset: 36px !default;
 		clear: both;
 	}
 
-	&.md-has-icon {
+	ag-icon {
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		right: auto;
+	}
+
+	&.ag-has-icon {
 		padding:0 0 0 $icon-offset;
 		//@include rtl(padding-left, $icon-offset, 0);
 		//@include rtl(padding-right, 0, $icon-offset);
@@ -280,7 +287,7 @@ $icon-offset: 36px !default;
 	}
 
 	&.ag-input-focused {
-		label, .ag-input-group .ag-input-group-addon {
+		label, .ag-input-group .ag-input-group-addon, ag-icon, i {
 			color: $ag-floating-label-color-primary;
 		}
 		.ag-floating-label-underline {
@@ -297,15 +304,11 @@ $icon-offset: 36px !default;
 		[ng-message] {
 			display: block;
 		}
-		.ag-input-group {
-			.ag-input-group-addon {
-				color: $ag-floating-label-color-error;
-			}
-		}
-		&.ag-input-focused {
-			label {
-				color: $ag-floating-label-color-error;
-			}
+		ag-icon,
+		i,
+		.ag-input-group .ag-input-group-addon,
+		&.ag-input-focused label {
+			color: $ag-floating-label-color-error;
 		}
 		.ag-floating-label-underline {
 			background-color: $ag-floating-label-color-error;
@@ -336,35 +339,15 @@ $icon-offset: 36px !default;
 		.ag-hint {
 			margin-top:-100%;
 		}
-		[ag-hints], .ag-hints {
-		}
 	}
+
 	.ag-hints, .ag-hint {
-		//overflow: hidden;
+		overflow: hidden;
 		// Default state for messages is to be visible
 		opacity: 1;
 		margin-top: 0;
 	}
-	//ng-message, data-ng-message, x-ng-message,
-	//[ng-message], [data-ng-message], [x-ng-message],
-	//[ng-message-exp], [data-ng-message-exp], [x-ng-message-exp],
-	//.md-char-counter {
-	//	overflow: hidden;
-	//	// Default state for messages is to be visible
-	//	//opacity: 1;
-	//	//margin-top: 0;
-	//}
 
-	// AG- Workaround for errors such as when adding a minlength error on an input, since these errors automatically pop
-	// up, we don't want them to auto-pop up.
-	// This makes sure an element has been touched first.
-	// Touched means that the element was focused and then blurred
-	// It doesn't just mean focused, as one might guess
-	//&:not(.ag-input-touched) {
-	//	[ng-message] {
-	//		display:none;
-	//	}
-	//}
 	&:not(.ag-input-invalid) {
 		.ag-auto-hide {
 			.ag-input-message-animation {
@@ -373,14 +356,4 @@ $icon-offset: 36px !default;
 			}
 		}
 	}
-	//
-	// Note: This is a workaround to fix an ng-enter flicker bug
-	//.ag-auto-hide {
-	//	.ag-input-message-animation {
-	//		&:not(.ng-animate) {
-	//			opacity: 0;
-	//			margin-top: -100px;
-	//		}
-	//	}
-	//}
 }

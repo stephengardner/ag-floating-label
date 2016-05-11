@@ -152,7 +152,7 @@
                                    maxlength="30"
                                    minlength="5"
                                    required
-                                   />
+                            />
                             <div ng-messages="errorsForm.city.$error" ng-messages-multiple>
                                 <div ng-message="minlength">Please enter at least 5 characters</div>
                                 <div ng-message="required">Required</div>
@@ -246,7 +246,7 @@
             <div class="panel panel-warning">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        Icon support, hints and errors will adjust to fit
+                        Icon support using bootstrap's input groups style.  <code>&lt;ag-input-group></code>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -311,21 +311,73 @@
                                 </ag-floating-label>
                             </div>
                         </div>
-                        <ag-floating-label>
-                            <label>Email</label>
-                            <ag-icon>
-                                <i class="material-icons">email</i>
-                            </ag-icon>
-                            <input type="email" ng-model="iconsFormEmail" name="email"/>
-                            <ag-hints>
-                                <ag-hint>
-                                    Where should we direct the spam? :-)
-                                </ag-hint>
-                            </ag-hints>
-                            <div ng-messages="iconForm.email.$error">
-                                <div ng-message="email">Please enter a valid email</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Icon support using <code>&lt;ag-icon></code>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form name="iconForm">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ag-floating-label>
+                                    <label>Name</label>
+                                    <ag-icon>
+                                        <i class="material-icons">person</i>
+                                    </ag-icon>
+                                    <input type="text" required ng-model="iconFormName" name="name"/>
+                                    <ag-hints>
+                                        <ag-hint>
+                                            What should we call you?
+                                        </ag-hint>
+                                    </ag-hints>
+                                    <div ng-messages="iconForm.name.$error">
+                                        <div ng-message="required">Please select a name</div>
+                                    </div>
+                                </ag-floating-label>
                             </div>
-                        </ag-floating-label>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ag-floating-label>
+                                    <label>Phone</label>
+                                    <ag-icon>
+                                        <i class="material-icons">phone</i>
+                                    </ag-icon>
+                                    <input type="phone" ng-model="iconFormPhone" name="phone"/>
+                                    <ag-hints>
+                                        <ag-hint>
+                                            How can we reach you?
+                                        </ag-hint>
+                                    </ag-hints>
+                                </ag-floating-label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ag-floating-label>
+                                    <label>Email</label>
+                                    <ag-icon>
+                                        <i class="material-icons">email</i>
+                                    </ag-icon>
+                                    <input type="email" ng-model="iconsFormEmail" name="email"/>
+                                    <ag-hints>
+                                        <ag-hint>
+                                            Where should we direct the spam? :-)
+                                        </ag-hint>
+                                    </ag-hints>
+                                    <div ng-messages="iconForm.email.$error">
+                                        <div ng-message="email">Please enter a valid email</div>
+                                    </div>
+                                </ag-floating-label>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

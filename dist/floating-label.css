@@ -74,7 +74,7 @@
   box-sizing: border-box;
   float: left;
   font-family: inherit;
-  border-color: inherit; }
+  border-color: #aaa; }
   [ag-floating-label] .ag-input:focus, .ag-floating-label .ag-input:focus, ag-floating-label .ag-input:focus {
     outline: 0; }
   [ag-floating-label] .ag-input:after, .ag-floating-label .ag-input:after, ag-floating-label .ag-input:after {
@@ -115,7 +115,7 @@
 [ag-floating-label] input, [ag-floating-label] select, .ag-floating-label input, .ag-floating-label select, ag-floating-label input, ag-floating-label select {
   position: relative;
   border: none;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #aaa;
   border-radius: 0;
   font-size: 1em;
   display: block;

@@ -24,12 +24,14 @@
 				post : function postLink(scope, element, attrs, agFloatingLabel) {
 					// BEGIN DUPLICATE CODE
 					if (!agFloatingLabel) return;
-					var inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
+					var containerElement = agFloatingLabel.element,
+						containerHasIcon = containerElement.find('ag-icon'),
+						inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
 
 					scope.$watch(function() {
 						return getElementOffset(inputElement).left
 					}, function(oldValue, newValue) {
-						if(oldValue != newValue) {
+						if(!containerHasIcon && oldValue != newValue) {
 							center();
 						}
 					})
