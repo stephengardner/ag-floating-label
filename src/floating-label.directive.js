@@ -50,7 +50,8 @@ var divtag     = document.querySelector("div");
 		return { top: top, left: left };
 	}
 
-	function ContainerCtrl($scope, $element, $attrs, $animate, $timeout, $agUtil) {
+	ContainerCtrl.$inject = ["$scope", "$element", "$attrs", "$animate"];
+	function ContainerCtrl($scope, $element, $attrs, $animate) {
 		var self = this;
 		self.element = $element,
 			self.invalid = false,

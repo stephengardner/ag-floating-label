@@ -1,7 +1,7 @@
 // standard defaults
 $ag-floating-label-color-primary : blue;
 $ag-floating-label-color-error : red;
-$ag-floating-label-underline-color-default : #ccc;
+$ag-floating-label-underline-color-default : #aaa;
 $ag-floating-label-placeholder-color-default : #aaa;
 $ag-floating-label-input-font-size : 16px;
 $ag-floating-label-input-padding-size : .2em;
@@ -143,7 +143,7 @@ $icon-offset: 36px !default;
 		// Then, to cap it off at the end, clearing it.
 		float: left;
 		font-family: inherit;
-		border-color: inherit;
+		border-color: $ag-floating-label-underline-color-default;
 		&:after {
 			content: '';
 			display: table;

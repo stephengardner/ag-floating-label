@@ -13,7 +13,6 @@
 		return {
 			restrict: 'EA',
 			link: postLink,
-
 			// This is optional because we don't want target *all* ngMessage instances, just those inside of
 			// mdInputContainer.
 			require: '^^?agFloatingLabel'
@@ -51,11 +50,9 @@
 			}
 			// END DUPLICATE CODE
 
-			
 			// Add our animation class
 			element.toggleClass('ag-input-messages-animation', true);
 			
-
 			// Add our md-auto-hide class to automatically hide/show messages when container is invalid
 			element.toggleClass('ag-auto-hide', true);
 

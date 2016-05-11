@@ -1,82 +1,13 @@
 (function(angular) {
     'use strict';
     var app = angular.module('agFloatingLabel', ['ngMessages', 'ngAnimate']);
-	app.config(function($animateProvider){
+	app.config(['$animateProvider', function($animateProvider){
 		$animateProvider.classNameFilter(/^(?:(?!ng-animate-disabled).)*$/);
-	});
+	}]);
 })(window.angular);
-(function (angular) {
-	function agMessagesAutoPosition($timeout) {
-		return {
-			restrict: 'EA',
-			link: postLink,
-			// This is optional because we don't want target *all* ngMessage instances, just those inside of
-			// mdInputContainer.
-			require: '^^?agFloatingLabel'
-		};
-
-		function postLink(scope, element, attrs, agFloatingLabel) {
-			if (!agFloatingLabel) return;
-			var inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
-			scope.$watch(function(){
-				return scope.$eval(attrs.agMessagesAutoPosition)
-			}, function(newValue, oldValue){
-				console.log('____agMessagedAutoPosition changing from : ', oldValue + ' to: ', newValue, " and element: ", element);
-				if(newValue)
-					center();
-				else
-					undoCenter();
-			});
-
-			scope.$watch(function() {
-				return getElementOffset(inputElement).left
-			}, function(oldValue, newValue) {
-				console.log("inputOffset changed from ", oldValue, " to: ", newValue);
-				if(oldValue != newValue && scope.$eval(attrs.agMessagesAutoPosition)) {
-					center();
-				}
-			})
-
-			function undoCenter() {
-				element.css('padding-left', '0px' );
-			}
-			function center() {
-				console.log("DoCenter");
-					element.toggleClass('ag-messages-auto-position', true);
-						var inputOffset = getElementOffset(inputElement),
-						agFloatingLabelOffset = getElementOffset(agFloatingLabel.element[0]),
-						offsetLeftDifference = inputOffset.left - agFloatingLabelOffset.left,
-						offsetLeftStyle = offsetLeftDifference + 'px'
-						;
-					element.css('padding-left', offsetLeftStyle);
-			}
-		}
-	}
-
-	angular.module('agFloatingLabel')
-		.directive('agMessagesAutoPosition', ['$timeout', agMessagesAutoPosition])
-})(window.angular);
-
-function getElementOffset(element)
-{
-	var de = document.documentElement;
-	var box = element.getBoundingClientRect();
-	var top = box.top + window.pageYOffset - de.clientTop;
-	var left = box.left + window.pageXOffset - de.clientLeft;
-	return { top: top, left: left };
-}
-
 (function (angular) {
 	var visibilityDirectives = ['ngIf', 'ngShow', 'ngHide', 'ngSwitchWhen', 'ngSwitchDefault'];
-
-	function addDefaultsToObject(object, defaults) {
-		for(var prop in defaults) {
-			if(!object.hasOwnProperty(prop)) {
-				object[prop] = defaults[prop];
-			}
-		}
-	}
-	function agHintsDirective($compile, $timeout) {
+	function agHintsDirective() {
 		return {
 			restrict: 'EA',
 			// scope : {
@@ -123,9 +54,8 @@ function getElementOffset(element)
 		}
 	}
 	angular.module('agFloatingLabel')
-		.directive('agHints', ['$compile', '$timeout', agHintsDirective])
+		.directive('agHints', agHintsDirective)
 })(window.angular);
-
 
 (function (angular) {
 	var visibilityDirectives = ['ngIf', 'ngShow', 'ngHide', 'ngSwitchWhen', 'ngSwitchDefault'];
@@ -230,7 +160,7 @@ function getElementOffset(element)
 			}
 		}
 	}
-	agInputInvalidMessagesAnimation.$inject = ["$q", "$animateCss"];
+	agHintsActiveAnimation.$inject = ["$q", "$animateCss"];
 
 	function ngMessagesAnimation($q, $animateCss) {
 		return {
@@ -322,26 +252,7 @@ function getElementOffset(element)
 			}
 		}
 	}
-	ngMessagesAnimation.$inject = ["$q", "$animateCss"];
-
-	function agHintAnimation($animateCss) {
-		return {
-			enter: function(element, done) {
-				var messages = getMessagesElement(element);
-				// If we have the md-auto-hide class, the md-input-invalid animation will fire, so we can skip
-				if (messages.hasClass('ag-auto-hide')) {
-					done();
-					return;
-				}
-
-				return showMessage(element, $animateCss);
-			},
-
-			leave: function(element, done) {
-				return hideMessage(element, $animateCss);
-			}
-		}
-	}
+	agHintsAnimation.$inject = ["$q", "$animateCss"];
 
 	function showInputMessages(element, $animateCss, $q) {
 		var animators = [], animator;
@@ -798,7 +709,8 @@ var divtag     = document.querySelector("div");
 		return { top: top, left: left };
 	}
 
-	function ContainerCtrl($scope, $element, $attrs, $animate, $timeout, $agUtil) {
+	ContainerCtrl.$inject = ["$scope", "$element", "$attrs", "$animate"];
+	function ContainerCtrl($scope, $element, $attrs, $animate) {
 		var self = this;
 		self.element = $element,
 			self.invalid = false,
@@ -1031,7 +943,6 @@ var divtag     = document.querySelector("div");
 		return {
 			restrict: 'EA',
 			link: postLink,
-
 			// This is optional because we don't want target *all* ngMessage instances, just those inside of
 			// mdInputContainer.
 			require: '^^?agFloatingLabel'
@@ -1069,11 +980,9 @@ var divtag     = document.querySelector("div");
 			}
 			// END DUPLICATE CODE
 
-			
 			// Add our animation class
 			element.toggleClass('ag-input-messages-animation', true);
 			
-
 			// Add our md-auto-hide class to automatically hide/show messages when container is invalid
 			element.toggleClass('ag-auto-hide', true);
 

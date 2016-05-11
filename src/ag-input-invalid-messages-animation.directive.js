@@ -47,7 +47,7 @@
 			}
 		}
 	}
-	agInputInvalidMessagesAnimation.$inject = ["$q", "$animateCss"];
+	agHintsActiveAnimation.$inject = ["$q", "$animateCss"];
 
 	function ngMessagesAnimation($q, $animateCss) {
 		return {
@@ -139,26 +139,7 @@
 			}
 		}
 	}
-	ngMessagesAnimation.$inject = ["$q", "$animateCss"];
-
-	function agHintAnimation($animateCss) {
-		return {
-			enter: function(element, done) {
-				var messages = getMessagesElement(element);
-				// If we have the md-auto-hide class, the md-input-invalid animation will fire, so we can skip
-				if (messages.hasClass('ag-auto-hide')) {
-					done();
-					return;
-				}
-
-				return showMessage(element, $animateCss);
-			},
-
-			leave: function(element, done) {
-				return hideMessage(element, $animateCss);
-			}
-		}
-	}
+	agHintsAnimation.$inject = ["$q", "$animateCss"];
 
 	function showInputMessages(element, $animateCss, $q) {
 		var animators = [], animator;

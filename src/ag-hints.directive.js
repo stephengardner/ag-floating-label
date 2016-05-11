@@ -1,14 +1,6 @@
 (function (angular) {
 	var visibilityDirectives = ['ngIf', 'ngShow', 'ngHide', 'ngSwitchWhen', 'ngSwitchDefault'];
-
-	function addDefaultsToObject(object, defaults) {
-		for(var prop in defaults) {
-			if(!object.hasOwnProperty(prop)) {
-				object[prop] = defaults[prop];
-			}
-		}
-	}
-	function agHintsDirective($compile, $timeout) {
+	function agHintsDirective() {
 		return {
 			restrict: 'EA',
 			// scope : {
@@ -55,9 +47,8 @@
 		}
 	}
 	angular.module('agFloatingLabel')
-		.directive('agHints', ['$compile', '$timeout', agHintsDirective])
+		.directive('agHints', agHintsDirective)
 })(window.angular);
-
 
 (function (angular) {
 	var visibilityDirectives = ['ngIf', 'ngShow', 'ngHide', 'ngSwitchWhen', 'ngSwitchDefault'];
