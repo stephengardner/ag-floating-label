@@ -24,24 +24,23 @@
 			require: '^^?agFloatingLabel',
 			compile : compile
 		};
-
 		function compile(element, attrs) {
 			element.toggleClass('ag-hints', true);
 			return {
-				post : function postLink(scope, element, attrs, agFloatingLabel) {
+				pre : function postLink(scope, element, attrs, agFloatingLabel) {
 					// BEGIN DUPLICATE CODE
 					if (!agFloatingLabel) return;
 					var containerElement = agFloatingLabel.element,
 						containerHasIcon = containerElement.find('ag-icon'),
 						inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
 
-					scope.$watch(function() {
-						return getElementOffset(inputElement).left
-					}, function(oldValue, newValue) {
-						if(!containerHasIcon && oldValue != newValue) {
-							center();
-						}
-					})
+					// scope.$watch(function() {
+					// 	return getElementOffset(inputElement).left
+					// }, function(oldValue, newValue) {
+					// 	if(!containerHasIcon && oldValue != newValue) {
+					// 		center();
+					// 	}
+					// });
 
 					// Deprecated, will re-allow for this in the future based on Options
 					function undoCenter() {
@@ -891,7 +890,6 @@ var divtag     = document.querySelector("div");
 
 				return form ? form.$submitted : false;
 			};
-
 			//scope.$watch(ngModelCtrl.$touched, containerCtrl.setTouched);
 
 			scope.$watch(isErrorGetter, containerCtrl.setInvalid);
@@ -966,13 +964,13 @@ var divtag     = document.querySelector("div");
 				containerHasIcon = containerElement.find('ag-icon'),
 				inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
 
-			scope.$watch(function() {
-				return getElementOffset(inputElement).left
-			}, function(oldValue, newValue) {
-				if(!containerHasIcon && oldValue != newValue) {
-					center();
-				}
-			})
+			// scope.$watch(function() {
+			// 	return getElementOffset(inputElement).left
+			// }, function(oldValue, newValue) {
+			// 	if(!containerHasIcon && oldValue != newValue) {
+			// 		center();
+			// 	}
+			// })
 
 			// Deprecated, will re-allow for this in the future based on Options
 			function undoCenter() {
@@ -1107,10 +1105,10 @@ var divtag     = document.querySelector("div");
 					// todo - see if this is still necessary
 					$agUtil.nextTick(function(){
 						// element[0].blur();
-					})
+					});
 					containerCtrl.setFocused(false);
 				}
-			})
+			});
 
 			var label = containerCtrl.element[0].querySelector('label');
 			wrapInput(scope, element);

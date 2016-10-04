@@ -75,7 +75,6 @@
 
 				return form ? form.$submitted : false;
 			};
-
 			//scope.$watch(ngModelCtrl.$touched, containerCtrl.setTouched);
 
 			scope.$watch(isErrorGetter, containerCtrl.setInvalid);

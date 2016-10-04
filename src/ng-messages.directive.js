@@ -28,13 +28,13 @@
 				containerHasIcon = containerElement.find('ag-icon'),
 				inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
 
-			scope.$watch(function() {
-				return getElementOffset(inputElement).left
-			}, function(oldValue, newValue) {
-				if(!containerHasIcon && oldValue != newValue) {
-					center();
-				}
-			})
+			// scope.$watch(function() {
+			// 	return getElementOffset(inputElement).left
+			// }, function(oldValue, newValue) {
+			// 	if(!containerHasIcon && oldValue != newValue) {
+			// 		center();
+			// 	}
+			// })
 
 			// Deprecated, will re-allow for this in the future based on Options
 			function undoCenter() {

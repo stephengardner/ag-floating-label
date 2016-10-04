@@ -69,10 +69,10 @@
 					// todo - see if this is still necessary
 					$agUtil.nextTick(function(){
 						// element[0].blur();
-					})
+					});
 					containerCtrl.setFocused(false);
 				}
-			})
+			});
 
 			var label = containerCtrl.element[0].querySelector('label');
 			wrapInput(scope, element);

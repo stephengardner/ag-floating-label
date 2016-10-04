@@ -17,24 +17,23 @@
 			require: '^^?agFloatingLabel',
 			compile : compile
 		};
-
 		function compile(element, attrs) {
 			element.toggleClass('ag-hints', true);
 			return {
-				post : function postLink(scope, element, attrs, agFloatingLabel) {
+				pre : function postLink(scope, element, attrs, agFloatingLabel) {
 					// BEGIN DUPLICATE CODE
 					if (!agFloatingLabel) return;
 					var containerElement = agFloatingLabel.element,
 						containerHasIcon = containerElement.find('ag-icon'),
 						inputElement = agFloatingLabel.element[0].querySelector('input, select, textarea');
 
-					scope.$watch(function() {
-						return getElementOffset(inputElement).left
-					}, function(oldValue, newValue) {
-						if(!containerHasIcon && oldValue != newValue) {
-							center();
-						}
-					})
+					// scope.$watch(function() {
+					// 	return getElementOffset(inputElement).left
+					// }, function(oldValue, newValue) {
+					// 	if(!containerHasIcon && oldValue != newValue) {
+					// 		center();
+					// 	}
+					// });
 
 					// Deprecated, will re-allow for this in the future based on Options
 					function undoCenter() {
